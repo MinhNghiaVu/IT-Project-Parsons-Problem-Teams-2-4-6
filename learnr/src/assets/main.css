@@ -1,0 +1,26 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; 
+}
+
+#app {
+  position: relative; /* Enable relative positioning for pseudo-element */
+  min-height: 100vh;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+}
+
+#app::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top left, rgba(21, 107, 58, 0.5) 50%, rgba(240, 164, 84, 0.5) 75%);
+  filter: blur(600px); /* Adjust the blur as needed */
+  z-index: -1; /* Ensure it is behind the content */
+}

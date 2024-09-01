@@ -1,0 +1,23 @@
+{
+  "id": "4670106",
+  "name": "kick it",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "4244936",
+      "name": "051-上拉箭头",
+      "font_class": "-shanglajiantou",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "11195026",
+      "name": "发送",
+      "font_class": "fasong",
+      "unicode": "e65e",
+      "unicode_decimal": 58974
+    }
+  ]
+}
