@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'  // Import Vue Router for navigation
 
 const email = ref('')
 const password = ref('')
+const showPassword = ref(false)  // This will toggle password visibility
 const router = useRouter()  // Initialize the router
 
 function handleLogin() {
@@ -29,11 +30,14 @@ function handleKeydown(event) {
   }
 }
 
+function togglePasswordVisibility() {
+  showPassword.value = !showPassword.value
+}
+
 function goToGenerator() {
  router.push('/Generator') // Navigate to the Generator page
 }
 </script>
-
 
 <template>
   <div class="header">
@@ -56,13 +60,21 @@ function goToGenerator() {
         </div>
         <div class="form-group">
           <div class="subtitle">Password</div>
-          <input
-            v-model="password"
-            type="password"
-            class="login-input"
-            placeholder="Enter your Password"
-            @keydown="handleKeydown" 
-          />
+          <div class="password-input-container">
+            <input
+              v-model="password"
+              :type="showPassword ? 'text' : 'password'"
+              class="login-input"
+              placeholder="Enter your Password"
+              @keydown="handleKeydown" 
+            />
+            <!-- Eye icon for toggling password visibility -->
+            <i 
+              class="fas" 
+              :class="showPassword ? 'fa-eye' : 'fa-eye-slash'"
+              @click="togglePasswordVisibility"
+            ></i>
+          </div>
         </div>
       </div>
       <button @click="handleLogin" class="login-button">Login</button>
@@ -73,6 +85,7 @@ function goToGenerator() {
     </div>
   </div>
 </template>
+
 
 <style scoped>
 .header {
@@ -158,6 +171,25 @@ function goToGenerator() {
   border-radius: 3px;
   border: 1px solid #ccc;
   outline: none;
+}
+.password-input-container {
+  position: relative;
+  width: 114%;
+}
+
+.password-input-container input {
+  width: 100%;
+  padding-right: 1px;
+}
+
+.password-input-container i {
+  position: absolute;
+  right: 1%;
+  top: 55%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #333;
+  font-size: 16px;
 }
 .login-button {
   background-color: #030403;
