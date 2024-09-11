@@ -31,23 +31,36 @@ async function askGemini(topic, context) {
   
   // another prompt using the original one 
   let prompt = generatePrompt(topic, context);
-  let result = await chat.sendMessage(prompt);
-  let resp = result.response.text();
-  console.log(resp);
-  let fixed_resp = outputParserJson(resp);
+  let result = null;
+  try {
+    result = await chat.sendMessage(prompt);
+  } catch (err) {
+    console.log("Error querying gemini:\n");
+    console.log(err);
+  }
+  
 
-  console.log(fixed_resp);
-  console.log("Python code as array:\n");
-  console.log(fixed_resp.Code);
 
-  createCSV(fixed_resp.CSV, fixed_resp.CSVName);
+  if (result != null) {
+    let resp = result.response.text();
+    console.log(resp);
+    let fixed_resp = outputParserJson(resp);
+  
+    console.log(fixed_resp);
+    console.log("Python code as array:\n");
+    answer = fixed_resp.Code;
+    console.log(fixed_resp.Code);
+  
+    createCSV(fixed_resp.CSV, fixed_resp.CSVName);
+  
+    // Running the response through python interpreter
+    console.log(fixed_resp.Code.join('\n'));
+    PythonShell.runString(fixed_resp.Code.join('\n'), null).then(messages=>{
+      console.log("Output:\n");
+      console.log(messages);
+    });
+  }
 
-  // Running the response through python interpreter
-  console.log(fixed_resp.Code.join('\n'));
-  PythonShell.runString(fixed_resp.Code.join('\n'), null).then(messages=>{
-    console.log("Output:\n");
-    console.log(messages);
-  });
 }
 
 function createCSV(csvStr, csvName) {
