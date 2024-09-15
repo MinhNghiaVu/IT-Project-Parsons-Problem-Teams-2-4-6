@@ -6,6 +6,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { createCSV } from './utils/functions/createCSV.js';
 import express, { static as expressStatic, json } from 'express';
 import format from 'string-format';
+import { writeFile } from 'fs';
 import { establishConnection } from './database/connection.js';
 dotenv.config();
 const app = express()
@@ -46,14 +47,19 @@ async function askGemini(topic, context) {
 
     console.log(fixed_resp);
     console.log(fixed_resp.Code);
-    
+
     // Checking if the generated code is syntactically correct
     syntaxPassed = await syntaxCheck(fixed_resp);
     console.log("Syntax check success?: " + syntaxPassed + "\n");
+
+    let questionDetails = await formQuestionDetails(fixed_resp, topic, context);
+  
+    await questionDetailsRepo.saveApprovedQuestion(questionDetails, "questions");
+    console.log("\n>>>>>>>>>> Question saved to the database\n");
   }
 }
 
-function syntaxCheck(fixed_resp) {
+async function syntaxCheck(fixed_resp) {
   createCSV(fixed_resp.CSV, fixed_resp.CSVName);
 
   // Writing the generated code snippet to a Python script (to run through interpreter)
@@ -92,11 +98,7 @@ function syntaxCheck(fixed_resp) {
       console.log('finished');
     });
   });
-  let questionDetails = formQuestionDetails(fixed_resp, topic, context);
-  console.log(`Question details: ${questionDetails}`);
   
-  await questionDetailsRepo.saveApprovedQuestion(questionDetails, "questions");
-  console.log("\n>>>>>>>>>> Question saved to the database\n");
 }
 
 

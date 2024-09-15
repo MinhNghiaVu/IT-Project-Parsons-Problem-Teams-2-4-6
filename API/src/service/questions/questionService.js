@@ -1,4 +1,4 @@
-export function formQuestionDetails(data, topic, context) {
+export async function formQuestionDetails(data, topic, context) {
   const answer = data.Code;
   const description = data.Description;
   const expectedOutput = data.ExpectedOutput;
