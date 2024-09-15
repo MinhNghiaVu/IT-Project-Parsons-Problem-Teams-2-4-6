@@ -51,12 +51,11 @@ async function askGemini(topic, context) {
     // Checking if the generated code is syntactically correct
     syntaxPassed = await syntaxCheck(fixed_resp);
     console.log("Syntax check success?: " + syntaxPassed + "\n");
-
-    let questionDetails = await formQuestionDetails(fixed_resp, topic, context);
-  
-    await questionDetailsRepo.saveApprovedQuestion(questionDetails, "questions");
-    console.log("\n>>>>>>>>>> Question saved to the database\n");
   }
+  let questionDetails = await formQuestionDetails(fixed_resp, topic, context);
+  
+  await questionDetailsRepo.saveApprovedQuestion(questionDetails, "questions");
+  console.log("\n>>>>>>>>>> Question saved to the database\n");
 }
 
 async function syntaxCheck(fixed_resp) {
