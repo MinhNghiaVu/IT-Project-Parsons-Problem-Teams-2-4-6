@@ -1,0 +1,32 @@
+.header {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+  }
+  
+  .top-logo {
+    height: 25px; /* Adjust as needed */
+    margin-right: 10px;
+  }
+  
+  .web-name {
+    font-size: 21px;
+    font-weight: bold;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 20px;
+    width: auto; /* Set width to auto to adjust based on content */
+    margin-right: 30px; /* Move nav bar slightly away from the right edge */
+  }
+  
+  .nav-link {
+    text-decoration: none;
+    color: #333333;
+    font-weight: bold;
+  }
+  
+  .nav-link:hover {
+    color: #156B3A;
+  }
