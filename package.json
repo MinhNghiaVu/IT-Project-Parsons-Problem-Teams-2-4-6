@@ -23,6 +23,7 @@
     "@vitejs/plugin-vue": "^5.0.5",
     "concurrently": "^9.0.1",
     "eslint": "^9.9.1",
+    "gh-pages": "^6.1.1",
     "globals": "^15.9.0",
     "nodemon": "^3.1.4",
     "vite": "^5.4.4"
@@ -34,6 +35,9 @@
     "build": "vite build",
     "preview": "vite preview"
   },
+  "homepage": "http://minhnghiavu.github.io/IT-Project-Parsons-Problem-Teams-2-4-6",
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build",
   "type": "module",
   "keywords": [],
   "author": "",
