@@ -9,11 +9,11 @@
     "axios": "^1.7.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2",
+    "express": "^5.0.0",
     "mongodb": "^6.8.0",
-    "mongoose": "^7.0.0",
     "python-shell": "5.0.0",
     "string-format": "^2.0.0",
+    "mongoose": "^7.0.0",
     "vue": "^3.4.29",
     "vue-router": "^4.4.3"
   },
@@ -29,9 +29,9 @@
     "vite": "^5.4.4"
   },
   "scripts": {
-    "dev": "concurrently \"vite\" \"nodemon src/server.js\"",
+    "dev": "concurrently \"vite\" \"nodemon API/server.js\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "testConnection": "node src/database/connection.js",
+    "testConnection": "node API/database/connection.js",
     "build": "vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",

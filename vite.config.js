@@ -10,10 +10,10 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./App', import.meta.url))
     }
   },
-  outputDir: 'public',
+  outputDir: 'App',
   devServer: {
     proxy: 'http://localhost:3000',
   }

@@ -1,4 +1,4 @@
-const messages = {
+ const messages = {
 
   // COLLECTION DOES NOT EXIST
   QUESTION_DATA_COLLECTION_UNDEFINED: "Question Data Collection is not defined",

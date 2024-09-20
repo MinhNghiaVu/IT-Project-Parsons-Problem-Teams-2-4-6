@@ -8,7 +8,7 @@ export const getUserAttemptDetails = async (userID, dbName) => {
   if (!attemptCollection) {
     throw new Error(messages.ATTEMPT_COLLECTION_UNDEFINED);
   }
-  const dbConnection = getDatabaseConnection(dbName);
+  const dbConnection = await getDatabaseConnection(dbName);
   const attemptModel = dbConnection.model(
     attemptCollection,
     AttemptSchema

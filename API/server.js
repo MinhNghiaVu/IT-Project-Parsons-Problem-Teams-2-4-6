@@ -17,6 +17,7 @@ app.use(cors());
 import { establishConnection } from './database/connection.js';
 import { outputParserJson } from "./service/OutputParser.js";
 import { generatePrompt } from "./utils/constants/TopicsContexts.js";
+import { questionDetailsRepo } from './database/repository/questions/questionDetailsRepo.js';
 import { createCSV, syntaxCheck } from "./utils/compiler.js";
 
 // Establishing connection to the database
@@ -56,16 +57,13 @@ async function askGemini(topic, context) {
     createCSV(fixed_resp.CSV, fixed_resp.CSVName);
     syntaxPassed = await syntaxCheck(fixed_resp.Code);
     console.log("Syntax check success?: " + syntaxPassed + "\n");
-    
   }
 
   answer = fixed_resp;
-  
 }
-
 //Allows the server to see the index.html page in the public folder
 //IN MERGING PROCESS CHANGED FROM PUBLIC TO SRC SO index.html can be in the same folder as main.js
-app.use(expressStatic('src'))
+app.use(expressStatic('App'))
 //Expects to receive json in the app.post method
 app.use(json())
 

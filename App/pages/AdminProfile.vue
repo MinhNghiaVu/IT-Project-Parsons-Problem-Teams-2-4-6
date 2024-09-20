@@ -3,7 +3,7 @@
         <!-- Navigation Bar -->
         <nav class="navbar">
             <div class="brand">
-                <img src="/logo.png" alt="Learnr Logo" class="logo" />
+                <img src="/App/logo.png" alt="Learnr Logo" class="logo" />
                 <span>Learnr</span>
             </div>
             <div class="nav-links">
@@ -49,7 +49,7 @@
             <ul class="history-list">
                 <li v-for="(item, index) in history" :key="index" class="history-item">
                     <div class="history-topic">
-                        <img class="tubiao" src="/tubiao.png" /> {{ item.title }}
+                        <img class="tubiao" src="/App/tubiao.png" /> {{ item.title }}
                     </div>
                     <div class="history-practice">
                         {{ item.practice }}

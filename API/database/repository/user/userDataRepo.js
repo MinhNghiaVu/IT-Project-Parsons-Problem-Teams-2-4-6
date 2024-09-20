@@ -8,7 +8,7 @@ export const getUserData = async (userID, dbName) => {
   if (!userDataCollection) {
     throw new Error(messages.USER_DATA_COLLECTION_UNDEFINED);
   }
-  const dbConnection = getDatabaseConnection(dbName);
+  const dbConnection = await getDatabaseConnection(dbName);
   const userDataModel = dbConnection.model(
     userDataCollection,
     UserDataSchema
