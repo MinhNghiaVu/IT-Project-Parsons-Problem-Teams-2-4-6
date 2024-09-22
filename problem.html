@@ -319,6 +319,15 @@
             margin-top: 1px; /* 添加与进度条的间隔 */
         }
 
+        #resultMessage {    /* Pop up after correct submission*/
+            display: none; /* Initially hidden */
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
         /* @media (max-width: 768px) {
             main {
                 flex-direction: column;
@@ -462,6 +471,11 @@
                 <div id="feedback"></div>
             </div>
         </div>
+        <div id="resultMessage">
+            Correct answer! Congratulations!
+            <button id="regenerate-btn">Regenerate</button>
+            <button id="retry-btn">Try Again</button>
+        </div>
     </main>
 
     <script src="libs/js-parsons-master/lib/jquery.min.js"></script>
@@ -546,6 +560,9 @@
 
 
     </script>
+
+
+
 
     <!-- 进度条 -->
     <!-- <script>

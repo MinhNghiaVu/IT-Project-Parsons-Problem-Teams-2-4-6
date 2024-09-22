@@ -2,6 +2,10 @@ var initial = "print('Hello')\n" +
       "print('Parsons')\n" +
       "print('problems!')";
 
+var check = "a = 5\n" +
+            "b = 4\n" +
+            "print(a + b)";
+
 
 function displayErrors(fb) {
     if(fb.errors.length > 0) {
@@ -32,17 +36,34 @@ async function fetchStrings() {
     }
 }
 
+
+
+function getStudentCode(){
+    const codeLines = [];
+    $('#sortable li').each(function () {
+        codeLines.push($(this).text()); // Retrieve the text of each <li> element
+    });
+
+    // Join the code lines into a single string
+    const studentCode = codeLines.join('\n');
+    return studentCode;
+}
+
+
+
 //sending the result back to server
-function sendResult(){}
+function sendResult(correct){
+    console.log(correct);
+    return 0;
+    var pack = {
+        questionNo: questionNo,
+        studentId : studentId,
+        correctness : correct,
+        time : document.getElementById(time),
+        topic : topic
+    }
 
-
-
-
-
-
-
-
-
+}
 
 
 
@@ -51,65 +72,93 @@ document.addEventListener('DOMContentLoaded', () => {   //make sure script is lo
     console.log("DOM fully loaded and parsed");
     //get the strings after loaded
     
+    var question = check;
+
+    runCode(question).then(solution => {
+        console.log("Solution retrieved:", solution);
+    
+        var parson = new ParsonsWidget({
+            sortableId: 'sortable',
+            trashId: 'sortableTrash',
+            max_wrong_lines: 1,
+            feedback_cb : displayErrors,
+            can_indent: true
+        });
+        parson.init(question);
+        parson.shuffleLines();
+    
+        document.getElementById('run-btn').addEventListener('click', () => {
+            refreshOutput();
+            console.log("0000");
+            var studentCode = getStudentCode();
 
 
-    var parson = new ParsonsWidget({
-        sortableId: 'sortable',
-        trashId: 'sortableTrash',
-        max_wrong_lines: 1,
-        feedback_cb : displayErrors,
-        can_indent: false
-    });
-    parson.init(initial);
-    parson.shuffleLines();
- 
-    document.getElementById('run-btn').addEventListener('click', () => {
-        console.log("0000");
-        const codeLines = [];
-            $('#sortable li').each(function () {
-                codeLines.push($(this).text()); // Retrieve the text of each <li> element
-            });
+            runCode(studentCode).then(
+                result => {
+                    document.getElementById('output').textContent = result.output || result.error;
+                }
+            )
 
-            // Join the code lines into a single string
-            const studentCode = codeLines.join('\n');
-            //console.log(studentCode);
-            runCode(studentCode);
             //document.getElementById('output').textContent = studentCode; // Display the code
-    });
+        });
 
 
-    document.getElementById('submit-btn').addEventListener('click', () => {
-        var result = parson.getFeedback();
-        //alert(result.feedback); // Display feedback to the user
-        console.log("222")
-        if (result == []){
-            console.log("333");
-            result = "congratulation, correct";
-        }
-        document.getElementById('feedback').textContent = result;
-        console.log("111");
-        console.log( result);
-    });
+        document.getElementById('submit-btn').addEventListener('click', () => {
+            console.log("press submit");
+            var studentCode = getStudentCode();
+            
+            if(runSubmit(studentCode,solution) == "1"){
+                
+                console.log("result correct");
+            }
 
-    document.getElementById('reset-btn').addEventListener('click', () => {
-        parson.shuffleLines(); // Reshuffle the blocks for a new attempt
-    });
+
+        });
+
+        document.getElementById('reset-btn').addEventListener('click', () => {
+            parson.shuffleLines(); // Reshuffle the blocks for a new attempt
+        });
  
-
+    })
 });
 
 
+function refreshOutput(){
+    document.getElementById('output').textContent = ""
+    document.getElementById('resultMessage').style.display = 'none';
+}
 
 
 
+//modified submit function
+async function runSubmit(studentCode,solution) {
+    refreshOutput();
+    //const correctSolution = runCode(question);
+    const studentAnswer = await runCode(studentCode);
+    console.log("studentanswer");
+    console.log(studentAnswer);
+    console.log("studentanswer11");
+    document.getElementById('output').textContent = studentAnswer.output || studentAnswer.error;
 
-var outputElement = document.getElementById('output');
+    if(solution.output.join('') === studentAnswer.output.join('')){
+        console.log("same");
+        document.getElementById('resultMessage').style.display = 'block';
+        sendResult(1);
+        return 1;
+    }
+    else{
+        console.log("not same");
+        console.log(solution.output);
+        console.log(studentAnswer.output);
+        sendResult(0);
+        return 0;
+    }
+}
 
 
-var pdsample = 'import pandas as pd\nd = pd.DataFrame.from_dict({\'X\' : [1000,2500,3000,5000,6000,9000,11000,14000,18000,19000,19500,22000],\'Y\' :[100,105,80,77,74,70,65,63,62,61,60,55]})\nprint(d)';
 
-var studentAnswer;
-async function runCode(studentCode) {
+//modified runcode to support 
+async function runCode(code) {
     // The URL for your backend server endpoint
     const url = 'http://localhost:3000/run-python'; // Replace with your actual backend URL if deployed
 
@@ -119,7 +168,7 @@ async function runCode(studentCode) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            pythonCode: studentCode  // Send the Python code to the backend
+            pythonCode: code  // Send the Python code to the backend
         })
     };
 
@@ -127,9 +176,10 @@ async function runCode(studentCode) {
         const response = await fetch(url, options);
         const result = await response.json(); // Convert the response to JSON
         console.log(result); // Output the response to the console
-
+        
+        return result;
         // Display the output or errors from the Python code execution
-        document.getElementById('output').textContent = result.output || result.error;
+        
     } catch (error) {
         console.error('Error:', error);
     }
