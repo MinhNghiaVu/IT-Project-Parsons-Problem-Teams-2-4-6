@@ -1,0 +1,6 @@
+import pandas as pd
+koalas_df = pd.DataFrame({'Region': ['Eucalyptus Forest', 'Rainforest', 'Eucalyptus Forest', 'Rainforest', 'Eucalyptus Forest', 'Rainforest', 'Eucalyptus Forest', 'Rainforest', 'Eucalyptus Forest', 'Rainforest', 'Eucalyptus Forest', 'Rainforest', 'Eucalyptus Forest', 'Rainforest', 'Eucalyptus Forest', 'Rainforest', 'Eucalyptus Forest', 'Rainforest', 'Eucalyptus Forest', 'Rainforest'],'Age': [5, 8, 3, 6, 7, 4, 9, 2, 10, 1, 1, 3, 2, 7, 4, 5, 6, 9, 8, 10],'Weight': [10.2, 12.5, 9.8, 11.7, 11.1, 10.9, 12.3, 9.5, 13.4, 8.7, 8.9, 10.1, 9.2, 12.0, 10.6, 11.3, 11.8, 12.9, 12.2, 13.6],'Sex': ['Male', 'Female', 'Female', 'Male', 'Male', 'Female', 'Male', 'Female', 'Male', 'Female', 'Female', 'Male', 'Male', 'Female', 'Male', 'Male', 'Female', 'Male', 'Female', 'Male']})
+mean_weight_older_5 = koalas_df[koalas_df['Age'] > 5]['Weight'].mean()
+mean_weight_younger_5 = koalas_df[koalas_df['Age'] <= 5]['Weight'].mean()
+print(f'Average weight for koalas older than 5 years: {mean_weight_older_5:.2f}')
+print(f'Average weight for koalas younger than or equal to 5 years: {mean_weight_younger_5:.2f}')

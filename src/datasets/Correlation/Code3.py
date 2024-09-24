@@ -1,0 +1,10 @@
+import pandas as pd
+data = pd.read_csv('koala_data.csv')
+correlation = data['Eucalyptus Leaf Consumption (g)'].corr(data['Body Weight (kg)'])
+print(f'Correlation between eucalyptus leaf consumption and body weight: {correlation}')
+correlation = data['Time Spent Sleeping (hours)'].corr(data['Body Weight (kg)'])
+print(f'Correlation between time spent sleeping and body weight: {correlation}')
+correlation = data['Number of Offspring'].corr(data['Body Weight (kg)'])
+print(f'Correlation between number of offspring and body weight: {correlation}')
+correlation = data['Time Spent Grooming (minutes)'].corr(data['Body Weight (kg)'])
+print(f'Correlation between time spent grooming and body weight: {correlation}')

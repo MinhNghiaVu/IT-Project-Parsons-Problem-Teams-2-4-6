@@ -1,0 +1,725 @@
+DataFrame/Code5.py:
+Standard deviation of age for kangaroos in Queensland: 3.03
+
+DataFrame/Code7.py:
+Average weight for male kangaroos: 68.76
+Average weight for female kangaroos: 65.92
+
+DataFrame/Code4.py:
+Average population density for the top 10 most populous countries: 246.54
+
+DataFrame/Code2.py:
+              Region     Sex       Age
+0  Eucalyptus Forest  Female  4.500000
+1  Eucalyptus Forest    Male  6.166667
+2         Rainforest  Female  4.400000
+3         Rainforest    Male  6.600000
+
+DataFrame/Code1.py:
+Average weight for koalas older than 5 years: 12.35
+Average weight for koalas younger than or equal to 5 years: 9.92
+
+DataFrame/Code8.py:
+              Region  Count
+0  Eucalyptus Forest     10
+1         Rainforest     10
+
+DataFrame/Code0.py:
+Standard deviation of age for koalas in Rainforest: 3.03
+
+DataFrame/Code3.py:
+Standard deviation of petal width for Iris-virginica: 0.27
+
+DataFrame/Code9.py:
+              Region  AverageWeight
+0         Queensland          68.42
+1  Western Australia          66.55
+
+NLTK/Code5.py:
+Sentences:
+Koalas are adorable marsupials native to Australia.
+They are known for their cuddly appearance and their love of eucalyptus leaves.
+These nocturnal creatures are highly social and live in groups called "clans."
+Although koalas are herbivores, they have a unique digestive system that allows them to extract nutrients from eucalyptus leaves, which are low in nutritional value.
+Koalas are facing threats from habitat loss, bushfires, and disease.
+Conservation efforts are crucial to protect these beloved animals.
+
+Filtered words:
+['Koalas', 'adorable', 'marsupials', 'native', 'Australia', '.', 'known', 'cuddly', 'appearance', 'love', 'eucalyptus', 'leaves', '.', 'nocturnal', 'creatures', 'highly', 'social', 'live', 'groups', 'called', '``', 'clans', '.', "''", 'Although', 'koalas', 'herbivores', ',', 'unique', 'digestive', 'system', 'allows', 'extract', 'nutrients', 'eucalyptus', 'leaves', ',', 'low', 'nutritional', 'value', '.', 'Koalas', 'facing', 'threats', 'habitat', 'loss', ',', 'bushfires', ',', 'disease', '.', 'Conservation', 'efforts', 'crucial', 'protect', 'beloved', 'animals', '.']
+
+Most frequent words:
+.: 6
+,: 4
+Koalas: 2
+eucalyptus: 2
+leaves: 2
+
+NLTK/Code7.py:
+Sentences:
+Koalas are adorable marsupials native to Australia.
+They are known for their cuddly appearance and their love of eucalyptus leaves.
+These nocturnal creatures are highly social and live in groups called "clans."
+Although koalas are herbivores, they have a unique digestive system that allows them to extract nutrients from eucalyptus leaves, which are low in nutritional value.
+Koalas are facing threats from habitat loss, bushfires, and disease.
+Conservation efforts are crucial to protect these beloved animals.
+
+Filtered words:
+['Koalas', 'adorable', 'marsupials', 'native', 'Australia', '.', 'known', 'cuddly', 'appearance', 'love', 'eucalyptus', 'leaves', '.', 'nocturnal', 'creatures', 'highly', 'social', 'live', 'groups', 'called', '``', 'clans', '.', "''", 'Although', 'koalas', 'herbivores', ',', 'unique', 'digestive', 'system', 'allows', 'extract', 'nutrients', 'eucalyptus', 'leaves', ',', 'low', 'nutritional', 'value', '.', 'Koalas', 'facing', 'threats', 'habitat', 'loss', ',', 'bushfires', ',', 'disease', '.', 'Conservation', 'efforts', 'crucial', 'protect', 'beloved', 'animals', '.']
+
+Most frequent words:
+.: 6
+,: 4
+Koalas: 2
+eucalyptus: 2
+leaves: 2
+
+NLTK/Code4.py:
+Sentences:
+The global population is growing rapidly, with significant implications for resources, environment, and infrastructure.
+Population growth varies across different regions, with some countries experiencing rapid increases while others are experiencing decline.
+Understanding population trends is crucial for policymakers and planners to make informed decisions about resource allocation, urban development, and social services.
+Factors influencing population growth include birth rates, death rates, migration patterns, and socioeconomic conditions.
+
+Filtered words:
+['global', 'population', 'growing', 'rapidly', ',', 'significant', 'implications', 'resources', ',', 'environment', ',', 'infrastructure', '.', 'Population', 'growth', 'varies', 'across', 'different', 'regions', ',', 'countries', 'experiencing', 'rapid', 'increases', 'others', 'experiencing', 'decline', '.', 'Understanding', 'population', 'trends', 'crucial', 'policymakers', 'planners', 'make', 'informed', 'decisions', 'resource', 'allocation', ',', 'urban', 'development', ',', 'social', 'services', '.', 'Factors', 'influencing', 'population', 'growth', 'include', 'birth', 'rates', ',', 'death', 'rates', ',', 'migration', 'patterns', ',', 'socioeconomic', 'conditions', '.']
+
+Most frequent words:
+,: 9
+.: 4
+population: 3
+growth: 2
+experiencing: 2
+
+NLTK/Code2.py:
+Sentences:
+Kangaroos are large marsupials native to Australia.
+They are known for their powerful hind legs and their ability to hop at great speeds.
+Kangaroos are herbivores and primarily feed on grasses and other vegetation.
+These social animals live in groups called "mobs."
+They play a vital role in the Australian ecosystem, helping to disperse seeds and control vegetation.
+Kangaroos are facing threats from habitat loss, drought, and predation by introduced species like foxes and feral cats.
+
+Filtered words:
+['Kangaroos', 'large', 'marsupials', 'native', 'Australia', '.', 'known', 'powerful', 'hind', 'legs', 'ability', 'hop', 'great', 'speeds', '.', 'Kangaroos', 'herbivores', 'primarily', 'feed', 'grasses', 'vegetation', '.', 'social', 'animals', 'live', 'groups', 'called', '``', 'mobs', '.', "''", 'play', 'vital', 'role', 'Australian', 'ecosystem', ',', 'helping', 'disperse', 'seeds', 'control', 'vegetation', '.', 'Kangaroos', 'facing', 'threats', 'habitat', 'loss', ',', 'drought', ',', 'predation', 'introduced', 'species', 'like', 'foxes', 'feral', 'cats', '.']
+
+Most frequent words:
+.: 6
+Kangaroos: 3
+,: 3
+vegetation: 2
+large: 1
+
+NLTK/Code6.py:
+Sentences:
+The iris is a genus of flowering plants with showy flowers.
+They are commonly called "iris" after the Greek goddess Iris, a messenger of the gods, as it was thought that the flowers' colors resembled the rainbow.
+Irises are native to temperate regions of the Northern Hemisphere, and some species are cultivated worldwide as ornamental plants.
+There are many species and varieties of iris, including the bearded iris, the Japanese iris, and the Siberian iris.
+The flowers of irises are often used in gardens, bouquets, and floral arrangements.
+
+Filtered words:
+['iris', 'genus', 'flowering', 'plants', 'showy', 'flowers', '.', 'commonly', 'called', '``', 'iris', "''", 'Greek', 'goddess', 'Iris', ',', 'messenger', 'gods', ',', 'thought', 'flowers', "'", 'colors', 'resembled', 'rainbow', '.', 'Irises', 'native', 'temperate', 'regions', 'Northern', 'Hemisphere', ',', 'species', 'cultivated', 'worldwide', 'ornamental', 'plants', '.', 'many', 'species', 'varieties', 'iris', ',', 'including', 'bearded', 'iris', ',', 'Japanese', 'iris', ',', 'Siberian', 'iris', '.', 'flowers', 'irises', 'often', 'used', 'gardens', ',', 'bouquets', ',', 'floral', 'arrangements', '.']
+
+Most frequent words:
+,: 8
+iris: 6
+.: 5
+flowers: 3
+plants: 2
+
+NLTK/Code1.py:
+Sentences:
+Koalas are adorable marsupials native to Australia.
+They are known for their cuddly appearance and their love of eucalyptus leaves.
+These nocturnal creatures are highly social and live in groups called "clans."
+Although koalas are herbivores, they have a unique digestive system that allows them to extract nutrients from eucalyptus leaves, which are low in nutritional value.
+Koalas are facing threats from habitat loss, bushfires, and disease.
+Conservation efforts are crucial to protect these beloved animals.
+
+Filtered words:
+['Koalas', 'adorable', 'marsupials', 'native', 'Australia', '.', 'known', 'cuddly', 'appearance', 'love', 'eucalyptus', 'leaves', '.', 'nocturnal', 'creatures', 'highly', 'social', 'live', 'groups', 'called', '``', 'clans', '.', "''", 'Although', 'koalas', 'herbivores', ',', 'unique', 'digestive', 'system', 'allows', 'extract', 'nutrients', 'eucalyptus', 'leaves', ',', 'low', 'nutritional', 'value', '.', 'Koalas', 'facing', 'threats', 'habitat', 'loss', ',', 'bushfires', ',', 'disease', '.', 'Conservation', 'efforts', 'crucial', 'protect', 'beloved', 'animals', '.']
+
+Most frequent words:
+.: 6
+,: 4
+Koalas: 2
+eucalyptus: 2
+leaves: 2
+
+NLTK/Code8.py:
+Sentences:
+Kangaroos are large marsupials native to Australia.
+They are known for their powerful hind legs and their ability to hop at great speeds.
+Kangaroos are herbivores and primarily feed on grasses and other vegetation.
+These social animals live in groups called "mobs."
+They play a vital role in the Australian ecosystem, helping to disperse seeds and control vegetation.
+Kangaroos are facing threats from habitat loss, drought, and predation by introduced species like foxes and feral cats.
+
+Filtered words:
+['Kangaroos', 'large', 'marsupials', 'native', 'Australia', '.', 'known', 'powerful', 'hind', 'legs', 'ability', 'hop', 'great', 'speeds', '.', 'Kangaroos', 'herbivores', 'primarily', 'feed', 'grasses', 'vegetation', '.', 'social', 'animals', 'live', 'groups', 'called', '``', 'mobs', '.', "''", 'play', 'vital', 'role', 'Australian', 'ecosystem', ',', 'helping', 'disperse', 'seeds', 'control', 'vegetation', '.', 'Kangaroos', 'facing', 'threats', 'habitat', 'loss', ',', 'drought', ',', 'predation', 'introduced', 'species', 'like', 'foxes', 'feral', 'cats', '.']
+
+Most frequent words:
+.: 6
+Kangaroos: 3
+,: 3
+vegetation: 2
+large: 1
+
+NLTK/Code0.py:
+Sentences:
+Koalas are adorable marsupials native to Australia.
+They are known for their cuddly appearance and their love of eucalyptus leaves.
+These nocturnal creatures are highly social and live in groups called "clans."
+Although koalas are herbivores, they have a unique digestive system that allows them to extract nutrients from eucalyptus leaves, which are low in nutritional value.
+Koalas are facing threats from habitat loss, bushfires, and disease.
+Conservation efforts are crucial to protect these beloved animals.
+
+Filtered words:
+['Koalas', 'adorable', 'marsupials', 'native', 'Australia', '.', 'known', 'cuddly', 'appearance', 'love', 'eucalyptus', 'leaves', '.', 'nocturnal', 'creatures', 'highly', 'social', 'live', 'groups', 'called', '``', 'clans', '.', "''", 'Although', 'koalas', 'herbivores', ',', 'unique', 'digestive', 'system', 'allows', 'extract', 'nutrients', 'eucalyptus', 'leaves', ',', 'low', 'nutritional', 'value', '.', 'Koalas', 'facing', 'threats', 'habitat', 'loss', ',', 'bushfires', ',', 'disease', '.', 'Conservation', 'efforts', 'crucial', 'protect', 'beloved', 'animals', '.']
+
+Most frequent words:
+.: 6
+,: 4
+Koalas: 2
+eucalyptus: 2
+leaves: 2
+
+Longest word:
+Conservation
+
+Stemmed words:
+koala
+ador
+marsupi
+nativ
+australia
+.
+known
+cuddli
+appear
+love
+eucalyptu
+leav
+.
+nocturn
+creatur
+highli
+social
+live
+group
+call
+``
+clan
+.
+''
+although
+koala
+herbivor
+,
+uniqu
+digest
+system
+allow
+extract
+nutrient
+eucalyptu
+leav
+,
+low
+nutrit
+valu
+.
+koala
+face
+threat
+habitat
+loss
+,
+bushfir
+,
+diseas
+.
+conserv
+effort
+crucial
+protect
+belov
+anim
+.
+
+NLTK/Code3.py:
+Sentences:
+Koalas are adorable marsupials native to Australia.
+They are known for their cuddly appearance and their love of eucalyptus leaves.
+These nocturnal creatures are highly social and live in groups called "clans."
+Although koalas are herbivores, they have a unique digestive system that allows them to extract nutrients from eucalyptus leaves, which are low in nutritional value.
+Koalas are facing threats from habitat loss, bushfires, and disease.
+Conservation efforts are crucial to protect these beloved animals.
+
+Filtered words:
+['Koalas', 'adorable', 'marsupials', 'native', 'Australia', '.', 'known', 'cuddly', 'appearance', 'love', 'eucalyptus', 'leaves', '.', 'nocturnal', 'creatures', 'highly', 'social', 'live', 'groups', 'called', '``', 'clans', '.', "''", 'Although', 'koalas', 'herbivores', ',', 'unique', 'digestive', 'system', 'allows', 'extract', 'nutrients', 'eucalyptus', 'leaves', ',', 'low', 'nutritional', 'value', '.', 'Koalas', 'facing', 'threats', 'habitat', 'loss', ',', 'bushfires', ',', 'disease', '.', 'Conservation', 'efforts', 'crucial', 'protect', 'beloved', 'animals', '.']
+
+Most frequent words:
+.: 6
+,: 4
+Koalas: 2
+eucalyptus: 2
+leaves: 2
+
+NLTK/Code9.py:
+Sentences:
+Kangaroos are large marsupials native to Australia.
+They are known for their powerful hind legs and their ability to hop at great speeds.
+Kangaroos are herbivores and primarily feed on grasses and other vegetation.
+These social animals live in groups called "mobs."
+They play a vital role in the Australian ecosystem, helping to disperse seeds and control vegetation.
+Kangaroos are facing threats from habitat loss, drought, and predation by introduced species like foxes and feral cats.
+
+Filtered words:
+['Kangaroos', 'large', 'marsupials', 'native', 'Australia', '.', 'known', 'powerful', 'hind', 'legs', 'ability', 'hop', 'great', 'speeds', '.', 'Kangaroos', 'herbivores', 'primarily', 'feed', 'grasses', 'vegetation', '.', 'social', 'animals', 'live', 'groups', 'called', '``', 'mobs', '.', "''", 'play', 'vital', 'role', 'Australian', 'ecosystem', ',', 'helping', 'disperse', 'seeds', 'control', 'vegetation', '.', 'Kangaroos', 'facing', 'threats', 'habitat', 'loss', ',', 'drought', ',', 'predation', 'introduced', 'species', 'like', 'foxes', 'feral', 'cats', '.']
+
+Most frequent words:
+.: 6
+Kangaroos: 3
+,: 3
+vegetation: 2
+large: 1
+
+Correlation/Code5.py:
+Pearson correlation between hop length and body weight: 1.0
+P-value for Pearson correlation between hop length and body weight: 0.0
+Spearman correlation between tail length and body weight: 1.0
+P-value for Spearman correlation between tail length and body weight: 0.0
+
+Correlation/Code7.py:
+Correlation between sepal length and sepal width: -0.2065208671464963
+Correlation between petal length and petal width: 0.9595822118490271
+Correlation between sepal length and petal length: 0.883591335312166
+Correlation between sepal width and petal width: -0.39003483244868153
+
+Correlation/Code4.py:
+Covariance between eucalyptus leaf consumption and body weight: 600.0
+Covariance between time spent sleeping and body weight: 6.0
+Covariance between number of offspring and body weight: 1.9285714285714284
+Covariance between time spent grooming and body weight: 60.0
+
+Correlation/Code2.py:
+Pearson correlation between hop length and body weight: 1.0
+Spearman correlation between hop length and body weight: 1.0
+Kendall correlation between hop length and body weight: 0.9999999999999998
+
+Correlation/Code6.py:
+Pearson correlation between hop length and body weight: 1.0
+P-value for Pearson correlation between hop length and body weight: 0.0
+Spearman correlation between tail length and body weight: 1.0
+P-value for Spearman correlation between tail length and body weight: 0.0
+
+Correlation/Code1.py:
+                    Body Weight (kg)  ...  Hop Frequency (Hz)
+Body Weight (kg)            1.000000  ...           -0.998404
+Hop Length (cm)             1.000000  ...           -0.998404
+Tail Length (cm)            1.000000  ...           -0.998404
+Hop Frequency (Hz)         -0.998404  ...            1.000000
+
+[4 rows x 4 columns]
+Correlation between hop length and body weight: 1.0
+Correlation between tail length and body weight: 1.0
+Correlation between hop frequency and body weight: -0.9984038297885897
+
+Correlation/Code8.py:
+Pearson correlation matrix:
+                    Body Weight (kg)  ...  Hop Frequency (Hz)
+Body Weight (kg)            1.000000  ...           -0.998404
+Hop Length (cm)             1.000000  ...           -0.998404
+Tail Length (cm)            1.000000  ...           -0.998404
+Hop Frequency (Hz)         -0.998404  ...            1.000000
+
+[4 rows x 4 columns]
+Spearman correlation matrix:
+                    Body Weight (kg)  ...  Hop Frequency (Hz)
+Body Weight (kg)                 1.0  ...                -1.0
+Hop Length (cm)                  1.0  ...                -1.0
+Tail Length (cm)                 1.0  ...                -1.0
+Hop Frequency (Hz)              -1.0  ...                 1.0
+
+[4 rows x 4 columns]
+Kendall correlation matrix:
+                    Body Weight (kg)  ...  Hop Frequency (Hz)
+Body Weight (kg)                 1.0  ...                -1.0
+Hop Length (cm)                  1.0  ...                -1.0
+Tail Length (cm)                 1.0  ...                -1.0
+Hop Frequency (Hz)              -1.0  ...                 1.0
+
+[4 rows x 4 columns]
+
+Correlation/Code0.py:
+Correlation between hop length and body weight: 1.0
+Correlation between tail length and body weight: 1.0
+Correlation between hop frequency and body weight: -0.9984038297885897
+Correlation between hop length and tail length: 1.0
+
+Correlation/Code3.py:
+Correlation between eucalyptus leaf consumption and body weight: 1.0
+Correlation between time spent sleeping and body weight: 1.0
+Correlation between number of offspring and body weight: 0.9434563530497264
+Correlation between time spent grooming and body weight: 1.0
+
+Correlation/Code9.py:
+Covariance matrix:
+                    Body Weight (kg)  ...  Hop Frequency (Hz)
+Body Weight (kg)              150.00  ...            -6.25000
+Hop Length (cm)               300.00  ...           -12.50000
+Tail Length (cm)              150.00  ...            -6.25000
+Hop Frequency (Hz)             -6.25  ...             0.26125
+
+[4 rows x 4 columns]
+Covariance between hop length and body weight: 300.0
+Covariance between tail length and body weight: 150.0
+Covariance between hop frequency and body weight: -6.25
+
+DecisionTree/Code5.py:
+MAE: 3.0
+
+DecisionTree/Code7.py:
+R-squared: 0.19519999999999993
+
+DecisionTree/Code4.py:
+Accuracy: 0.9642857142857143
+
+DecisionTree/Code2.py:
+Accuracy: 0.08333333333333333
+
+DecisionTree/Code6.py:
+[[11  0  0]
+ [ 0 10  0]
+ [ 0  1  6]]
+
+DecisionTree/Code1.py:
+RMSE: 0.44440972086577946
+
+DecisionTree/Code8.py:
+F1 Score: 0.0
+
+DecisionTree/Code0.py:
+Mean Squared Error: 0.625
+
+DecisionTree/Code3.py:
+                 precision    recall  f1-score   support
+
+    Iris-setosa       1.00      1.00      1.00        11
+Iris-versicolor       0.91      1.00      0.95        10
+ Iris-virginica       1.00      0.86      0.92         7
+
+       accuracy                           0.96        28
+      macro avg       0.97      0.95      0.96        28
+   weighted avg       0.97      0.96      0.96        28
+
+
+DecisionTree/Code9.py:
+ROC AUC: 1.0
+
+NMI/Code5.py:
+0.48561448640758986
+
+NMI/Code7.py:
+Species        setosa  versicolor  virginica
+SepalLengthCm   5.006       5.936   6.634694
+SepalWidthCm    3.418       2.770   2.975510
+PetalLengthCm   1.464       4.260   5.595918
+PetalWidthCm    0.244       1.326   2.059184
+
+NMI/Code4.py:
+            SepalLengthCm  SepalWidthCm  PetalLengthCm  PetalWidthCm
+Species                                                             
+setosa           0.070413      0.111476       0.118519      0.439383
+versicolor       0.086956      0.113285       0.110308      0.149135
+virginica        0.094104      0.105283       0.095607      0.139105
+
+NMI/Code2.py:
+0.042159042424742936
+
+NMI/Code6.py:
+Location
+Forest A   NaN
+Forest B   NaN
+Forest C   NaN
+Forest D   NaN
+Forest E   NaN
+Forest F   NaN
+Forest G   NaN
+Forest H   NaN
+Forest I   NaN
+Forest J   NaN
+Forest K   NaN
+Forest L   NaN
+Forest M   NaN
+Forest N   NaN
+Forest O   NaN
+Forest P   NaN
+Forest Q   NaN
+Forest R   NaN
+Forest S   NaN
+Forest T   NaN
+Name: Average Age (years), dtype: float64
+
+NMI/Code1.py:
+0.9771797863243968
+
+NMI/Code8.py:
+City B
+
+NMI/Code0.py:
+Region
+Region A    0.090909
+Region B    0.111111
+Region C    0.066667
+Region D    0.166667
+Name: Population, dtype: float64
+
+NMI/Code3.py:
+     Region  Population Density
+0  Region A               200.0
+1  Region B               200.0
+2  Region C               200.0
+3  Region D               200.0
+4  Region E               200.0
+5  Region F               200.0
+6  Region G               200.0
+7  Region H               200.0
+8  Region I               200.0
+9  Region J               200.0
+
+NMI/Code9.py:
+                    Mean               ...      Variance             
+           SepalLengthCm SepalWidthCm  ... PetalLengthCm PetalWidthCm
+Species                                ...                           
+setosa          5.006000      3.41800  ...      0.030106     0.011494
+versicolor      5.936000      2.77000  ...      0.220816     0.039106
+virginica       6.634694      2.97551  ...      0.286233     0.082049
+
+[3 rows x 8 columns]
+
+CSV/Code5.py:
+Average sepal length: 5.843333333333334
+Species of iris with the smallest petal width: Iris-setosa
+Standard deviation of petal length for Iris-virginica: 0.5518946956639834
+Average sepal area by species: Species
+Iris-setosa        17.2088
+Iris-versicolor    16.5262
+Iris-virginica     19.6846
+Name: SepalArea, dtype: float64
+Bottom 5 irises with the smallest petal width:     SepalLengthCm  SepalWidthCm  ...      Species  SepalArea
+32            5.2           4.1  ...  Iris-setosa      21.32
+13            4.3           3.0  ...  Iris-setosa      12.90
+37            4.9           3.1  ...  Iris-setosa      15.19
+9             4.9           3.1  ...  Iris-setosa      15.19
+12            4.8           3.0  ...  Iris-setosa      14.40
+
+[5 rows x 6 columns]
+Correlation between sepal width and petal width: -0.35654408961380535
+Number of irises with a petal length greater than 5 cm: 42
+
+CSV/Code7.py:
+Total population: 5755769764
+Average population density: 65.08466936004646
+Country with the lowest population: Australia
+Percentage of world population in Europe: 8.100007993995918
+Country with the highest area: Russia
+Average population by continent: Continent
+Africa           9.498548e+07
+Asia             4.319237e+08
+Australia        2.550000e+07
+Europe           7.770297e+07
+North America    1.660011e+08
+South America    1.029408e+08
+Name: Population, dtype: float64
+Top 5 countries with the smallest area:            Country Continent  Population    Area
+7       Bangladesh      Asia   164689383  147570
+18  United Kingdom    Europe    67215000  242495
+12     Philippines      Asia   109581078  300000
+19           Italy    Europe    60483000  301338
+14         Germany    Europe    83240000  357022
+
+CSV/Code4.py:
+Mean sepal length by species: Species
+Iris-setosa        5.006
+Iris-versicolor    5.936
+Iris-virginica     6.588
+Name: SepalLengthCm, dtype: float64
+Species of iris with the largest petal width: Iris-virginica
+Standard deviation of sepal width for Iris-versicolor: 0.3137983233784114
+Average petal area by species: Species
+Iris-setosa         0.3628
+Iris-versicolor     5.7204
+Iris-virginica     11.2962
+Name: PetalArea, dtype: float64
+Top 5 irises with the largest sepal length:      SepalLengthCm  SepalWidthCm  ...         Species  PetalArea
+131            7.9           3.8  ...  Iris-virginica      12.80
+135            7.7           3.0  ...  Iris-virginica      14.03
+122            7.7           2.8  ...  Iris-virginica      13.40
+117            7.7           3.8  ...  Iris-virginica      14.74
+118            7.7           2.6  ...  Iris-virginica      15.87
+
+[5 rows x 6 columns]
+Correlation between sepal length and petal length: 0.8717541573048718
+Number of irises in each species: Species
+Iris-setosa        50
+Iris-versicolor    50
+Iris-virginica     50
+Name: count, dtype: int64
+
+CSV/Code2.py:
+Average age of koalas: 9.1
+ID of the oldest koala: 4
+Percentage of male koalas: 50.0
+Total number of offspring: 43
+Average weight by sex: Sex
+Female    7.98
+Male      7.61
+Name: Weight, dtype: float64
+ID of the koala with the lowest weight: 9
+Standard deviation of weight: 1.316884281372633
+Weight category counts: Weight_Category
+Medium         10
+Large           7
+Small           2
+Extra Large     1
+Name: count, dtype: int64
+Average number of offspring per female: 2.5
+
+CSV/Code6.py:
+Average weight of kangaroos: 60.1
+Age of the kangaroo with the highest hop length: 13
+Standard deviation of pouch young age: 3.2216373738242257
+Average body mass index for kangaroos older than 5 years: 47.25332591579364
+Top 5 heaviest kangaroos:     ID   Sex  ...  Pouch Young Age (months)  Body Mass Index
+6    7  Male  ...                        10        47.337278
+16  17  Male  ...                        10        47.607422
+0    1  Male  ...                         6        52.083333
+14  15  Male  ...                         7        48.374093
+4    5  Male  ...                         8        44.800000
+
+[5 rows x 8 columns]
+Correlation between weight and hop length: 0.9751477095757362
+Number of kangaroos with a pouch young: 20
+
+CSV/Code1.py:
+Total population: 5126624869
+Average population density: 87.08889033924973
+Country with the highest population: China
+Percentage of world population in Asia: 74.18085998443277
+Country with the lowest population density: 8    Russia
+Name: Country, dtype: object
+Population by continent: Continent
+Africa            423437580
+Asia             3802974416
+Europe            227718052
+North America     459935404
+South America     212559417
+Name: Population, dtype: int64
+
+CSV/Code8.py:
+Average petal length: 3.758666666666666
+Species of iris with the largest sepal length: Iris-virginica
+Standard deviation of petal width for Iris-setosa: 0.1072095030816784
+Average sepal ratio by species: Species
+Iris-setosa        1.474578
+Iris-versicolor    2.160402
+Iris-virginica     2.230453
+Name: SepalRatio, dtype: float64
+Bottom 5 irises with the smallest sepal width:      SepalLengthCm  SepalWidthCm  ...          Species  SepalRatio
+60             5.0           2.0  ...  Iris-versicolor    2.500000
+62             6.0           2.2  ...  Iris-versicolor    2.727273
+119            6.0           2.2  ...   Iris-virginica    2.727273
+68             6.2           2.2  ...  Iris-versicolor    2.818182
+41             4.5           2.3  ...      Iris-setosa    1.956522
+
+[5 rows x 6 columns]
+Correlation between petal length and petal width: 0.9627570970509663
+Number of irises with a sepal width less than 3 cm: 57
+
+CSV/Code0.py:
+Average weight of male koalas: 7.879999999999998
+Standard deviation of age for female koalas: 3.03315017762062
+Koala with the highest number of offspring: 3
+Weight of the koala with the highest number of offspring: 10.1
+Weight category counts: Weight_Category
+Medium         9
+Large          1
+Small          0
+Extra Large    0
+Name: count, dtype: int64
+Percentage of female koalas: 50.0
+Correlation between age and weight: 0.7886534535913691
+
+CSV/Code3.py:
+Total population: 5405729936
+Country with the highest population density: Bangladesh
+Average population: 270286496.8
+Average population density by continent: Continent
+Africa           139.724489
+Asia             206.305436
+Europe            22.774443
+North America     38.957537
+South America     24.960690
+dtype: float64
+Continent with the highest total population: Asia
+Standard deviation of population density: 242.12912675808226
+Bottom 5 countries with the lowest population:            Country Continent  Population     Area  Population_Density
+19           Italy    Europe    60483000   301338          200.714812
+17          France    Europe    67068000   551695          121.567170
+18  United Kingdom    Europe    67215000   242495          277.180973
+14         Germany    Europe    83240000   357022          233.150898
+15            Iran      Asia    84232000  1648195           51.105603
+Percentage of world population in Africa: 7.833124943591336
+
+CSV/Code9.py:
+Total number of irises: 150
+Species of iris with the smallest sepal length: Iris-setosa
+Standard deviation of sepal length for Iris-versicolor: 0.5161711470638634
+Average petal ratio by species: Species
+Iris-setosa        7.078000
+Iris-versicolor    3.242837
+Iris-virginica     2.780662
+Name: PetalRatio, dtype: float64
+Top 5 irises with the smallest petal length:     SepalLengthCm  SepalWidthCm  ...      Species  PetalRatio
+22            4.6           3.6  ...  Iris-setosa         5.0
+13            4.3           3.0  ...  Iris-setosa        11.0
+14            5.8           4.0  ...  Iris-setosa         6.0
+35            5.0           3.2  ...  Iris-setosa         6.0
+36            5.5           3.5  ...  Iris-setosa         6.5
+
+[5 rows x 6 columns]
+Correlation between sepal length and sepal width: -0.10936924995064937
+Number of irises with a petal width greater than 1.5 cm: 52
+
+LinearRegression/Code5.py:
+R-squared score: 1.0
+
+LinearRegression/Code7.py:
+Average Mean Squared Error: 4.334215463112736e-31
+
+LinearRegression/Code4.py:
+Mean Squared Error: 110008.88888888886
+
+LinearRegression/Code2.py:
+Mean Absolute Error: 20.0
+
+LinearRegression/Code6.py:
+Mean Absolute Error: 1.4999113062685865e-15
+
+LinearRegression/Code1.py:
+Mean Squared Error: 10.68222222222228
+
+LinearRegression/Code8.py:
+Mean Squared Error: 0.0004866868601319047
+
+LinearRegression/Code0.py:
+R-squared score: 0.9981255517676478
+
+LinearRegression/Code3.py:
+Average Mean Squared Error: 55.774171161698725
+
+LinearRegression/Code9.py:
+Mean Absolute Error: 512.0
+

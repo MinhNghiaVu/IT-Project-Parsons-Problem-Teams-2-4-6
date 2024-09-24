@@ -1,0 +1,10 @@
+import pandas as pd
+data = pd.read_csv('iris_data.csv')
+correlation = data['Sepal Length (cm)'].corr(data['Sepal Width (cm)'])
+print(f'Correlation between sepal length and sepal width: {correlation}')
+correlation = data['Petal Length (cm)'].corr(data['Petal Width (cm)'])
+print(f'Correlation between petal length and petal width: {correlation}')
+correlation = data['Sepal Length (cm)'].corr(data['Petal Length (cm)'])
+print(f'Correlation between sepal length and petal length: {correlation}')
+correlation = data['Sepal Width (cm)'].corr(data['Petal Width (cm)'])
+print(f'Correlation between sepal width and petal width: {correlation}')

@@ -20,3 +20,6 @@ databaseScripts/*.js
 
 # Ignore script generated for PythonShell
 script.py
+
+# Ignore pycache
+src/datasets/__pycache__/

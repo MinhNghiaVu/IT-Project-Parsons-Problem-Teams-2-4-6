@@ -1,0 +1,10 @@
+import pandas as pd
+data = pd.read_csv('kangaroo_data.csv')
+correlation = data['Hop Length (cm)'].corr(data['Body Weight (kg)'])
+print(f'Correlation between hop length and body weight: {correlation}')
+correlation = data['Tail Length (cm)'].corr(data['Body Weight (kg)'])
+print(f'Correlation between tail length and body weight: {correlation}')
+correlation = data['Hop Frequency (Hz)'].corr(data['Body Weight (kg)'])
+print(f'Correlation between hop frequency and body weight: {correlation}')
+correlation = data['Hop Length (cm)'].corr(data['Tail Length (cm)'])
+print(f'Correlation between hop length and tail length: {correlation}')

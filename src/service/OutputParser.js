@@ -18,10 +18,10 @@ export function outputParserJson(output) {
   }
   let parsedData = doParse[1];
   parsedData = JSON.parse(parsedData); 
-  console.log(parsedData.Code);
-  console.log(parsedData)
+  //console.log(parsedData.Code);
+  //console.log(parsedData)
   parsedData.Code = processString(parsedData.Code);
-  console.log(parsedData.Code);
+  //console.log(parsedData.Code);
   return parsedData;
 }
 

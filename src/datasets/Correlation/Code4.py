@@ -1,0 +1,10 @@
+import pandas as pd
+data = pd.read_csv('koala_data.csv')
+covariance = data['Eucalyptus Leaf Consumption (g)'].cov(data['Body Weight (kg)'])
+print(f'Covariance between eucalyptus leaf consumption and body weight: {covariance}')
+covariance = data['Time Spent Sleeping (hours)'].cov(data['Body Weight (kg)'])
+print(f'Covariance between time spent sleeping and body weight: {covariance}')
+covariance = data['Number of Offspring'].cov(data['Body Weight (kg)'])
+print(f'Covariance between number of offspring and body weight: {covariance}')
+covariance = data['Time Spent Grooming (minutes)'].cov(data['Body Weight (kg)'])
+print(f'Covariance between time spent grooming and body weight: {covariance}')

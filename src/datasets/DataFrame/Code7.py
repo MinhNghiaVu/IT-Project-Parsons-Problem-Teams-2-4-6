@@ -1,0 +1,5 @@
+import pandas as pd
+kangaroos_df = pd.DataFrame({'Region': ['Western Australia', 'Queensland', 'Western Australia', 'Queensland', 'Western Australia', 'Queensland', 'Western Australia', 'Queensland', 'Western Australia', 'Queensland', 'Western Australia', 'Queensland', 'Western Australia', 'Queensland', 'Western Australia', 'Queensland', 'Western Australia', 'Queensland', 'Western Australia', 'Queensland'],'Age': [5, 8, 3, 6, 7, 4, 9, 2, 10, 1, 1, 3, 2, 7, 4, 5, 6, 9, 8, 10],'Weight': [60.2, 72.5, 59.8, 68.7, 66.1, 65.9, 70.3, 62.5, 75.4, 59.7, 61.9, 65.1, 63.2, 70.0, 67.6, 68.3, 69.8, 73.9, 71.2, 77.6],'Sex': ['Male', 'Female', 'Female', 'Male', 'Male', 'Female', 'Male', 'Female', 'Male', 'Female', 'Female', 'Male', 'Male', 'Female', 'Male', 'Male', 'Female', 'Male', 'Female', 'Male']})
+avg_weight_by_sex = kangaroos_df.groupby('Sex')['Weight'].mean()
+print(f'Average weight for male kangaroos: {avg_weight_by_sex.loc["Male"]:.2f}')
+print(f'Average weight for female kangaroos: {avg_weight_by_sex.loc["Female"]:.2f}')
