@@ -84,11 +84,9 @@
                 <button id="escape-btn"><i class="fa-solid fa-xmark"></i></button>
                 <p>Correct answer! Congratulations!</p>
                 <div id="button-container">
-                    <button id="window-regenerate-btn">Regenerate</button>
-                    <button id="window-retry-btn">Try Again</button>
-                    <button id="window-back-btn">
-                        <router-link to="/Generator" class="nav-link">Back Home</router-link>
-                    </button>
+                    <button id="window-regenerate-btn" class="finish-button">Regenerate</button>
+                    <button id="window-retry-btn"class="finish-button">Try Again</button>
+                    <button id="window-back-btn" class="finish-button" @click="goBackHome">Back Home</button>
                 </div>
             </div>
 
@@ -142,6 +140,9 @@
         },
     
         methods: {
+            goBackHome() {
+                this.$router.push('/Generator'); // 跳转到 "/Generator" 页面
+            },
             // Mid resize
             midDragControllerDiv() {
                 const divider = document.getElementById('divider');
@@ -628,7 +629,6 @@
         margin: 0;
         padding: 0;
         display: flex;
-        overflow-x: hidden;
     }
     
     /* #app {
@@ -653,7 +653,7 @@
     }
 
     *:not(body)::-webkit-scrollbar-thumb {
-        background-color: #ffa200a1; 
+        background-color: #5e766950; 
         border-radius: 10px; 
     }
 
@@ -711,6 +711,7 @@
       gap: 20px;
       width: auto; /* Set width to auto to adjust based on content */
       margin-right: 30px; /* Move nav bar slightly away from the right edge */
+
     }
     .nav-link {
       text-decoration: none;
@@ -728,7 +729,6 @@
         align-items: flex-start;
         justify-content: center;
         margin: 0px auto;  /* 居中 */
-        margin-top: 10px;
         padding: 15px;
         background: linear-gradient(to top right, #6C8C81, #8E9D96);
         /* border-radius: 5px; */
@@ -812,7 +812,6 @@
         background-color: #C4D6BE;
         text-align: flex-start;
         height: 55%;
-        overflow: hidden; /* 如果内容超出，则添加滚动条 */
         display: flex;
         flex-direction: column; /* 确保内部的内容竖直排列 */
         justify-content: flex-start; /* Push the button-group to the bottom */
@@ -828,31 +827,34 @@
     }*/
     #sortable{
         flex-grow: 1;
-        margin-left: 20px;
-        margin-right: 15px;
+        margin-left: 10px;
+        margin-right: 10px;
         margin-top: 0; /* 移除顶部不必要的间距 */
+        margin-bottom: -40px;
         padding: 0; /* 确保padding不会影响间距 */
         width: auto;
-        /* overflow-y: auto; */
-        min-height: 100px; 
+        overflow-y: auto;        
+        font-size: 12px;
     }
 
     #horizontal-divider {
-        width: 100%;
-        height: 2px;
-        background-color: #f9f7eace;
-        cursor: ns-resize;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #000000e5;
-    }
-    
-    #horizontal-divider:hover {
-        background-color: #156b3a80;
-        height:10px;
-        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-    }
+    width: 100%;
+    height: 5px;
+    background-color: #c2f0d650; 
+    cursor: ns-resize;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000000e5;
+}
+#horizontal-divider:hover {
+    background-color: #156b3a80;
+    height: 10px;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    border-top: none;
+    border-bottom: none;
+}
+
     
     /* 底部区域样式 */
     /* #right-bottom {
@@ -866,22 +868,21 @@
     } */
     
     #output i{
-        font-size: 32px;
+        font-size: 12px;
     }
     
     #output{
         /* overflow-y: auto; */
         /* padding-left: 5px; */
-        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        font-weight: 750;
-        /* overflow-y: auto; */
+        font-weight: 550;
+        overflow-y: auto;
         padding-left: 5px;
         white-space: pre-line;
         flex-shrink: 0;
     }
     
     #feedback{
-        /* overflow-y: auto; */
+        overflow-y: auto;
         padding-left: 5px;
         flex-shrink: 0;
     }
@@ -904,8 +905,7 @@
         flex-direction: column;
         align-items: flex-start;
         box-sizing: border-box; /* 包括 padding 和 border 在元素总尺寸内 */
-        font-size: 24px;
-        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-size: 15px;
         overflow-y: auto;
         /* scrollbar-gutter: stable; */
     }
@@ -916,9 +916,9 @@
     
     /* 分割线 */
     #divider {
-        width: 2px;
+        width: 5px;
         height: 100%;
-        background-color: #f4f2e2;
+        background-color: #c2f0d650; 
         cursor: ew-resize;  /* 调整鼠标指针形状 */
         position: relative;
         text-align: center;
@@ -933,7 +933,7 @@
     
     #divider:hover{
         width: 10px;
-        background-color: #f0a554db;
+        background-color: #156b3a80;
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);   /* 阴影变大 */
         /* display:flex; */
     }
@@ -987,6 +987,7 @@
         /* box-shadow: 0 2px 8px rgba(131, 40, 40, 0.1); */
         flex-shrink: 0;
         overflow-y: auto;
+        font-size: 12px;
         /* scrollbar-gutter: stable; */
     }
     /* 鼠标悬浮时显示滚动条 */
@@ -1002,14 +1003,13 @@
         padding-right: 5px;
     }
     
-    #regenerate-btn button, #button-group button {
+    #regenerate-btn button, #button-group button{
         width: 150px;
         background-color: #C4D2C1;  /* 渐变绿色按钮 */
         border: 2px solid #ffffff;
         border-radius: 50px;
         color: rgb(0, 0, 0);
         padding: 10px;
-        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-size: 14px;
         font-weight: 800;
         border-radius: 17.5px;
@@ -1069,7 +1069,7 @@
         border-radius: 5px;
         margin: 10px;
         transition: all 0.3s ease;
-        font-size: 18px;
+        font-size: 14px;
         cursor: pointer;
         font-weight: 500;
     }
@@ -1124,7 +1124,7 @@
         border-radius: 10px;
         text-align: center;
         align-self: center;
-        font-size: 20px;
+        font-size: 18px;
     }
     
     /* @media (max-width: 768px) {
@@ -1221,7 +1221,7 @@
         
         /* 调整按钮内部的图标大小 */
         #button-group button i {
-            font-size: 16px;
+            font-size: 14px;
         }
         
         /* 隐藏或调整分割线 */
@@ -1263,6 +1263,7 @@
             top: 10px;
         }
     }
-    
-    
+    .finish-button{
+        background-color: #156B3A;
+    }
     </style>
