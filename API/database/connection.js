@@ -6,9 +6,7 @@ const mongoUsername = process.env.MONGO_DB_USERNAME;
 const mongoPassword = process.env.MONGO_DB_PASSWORD;
 const mongoClusterUrl = process.env.MONGO_DB_CLUSTER_URL;
 const mongoClusterName = process.env.MONGO_DB_CLUSTER_NAME;
-const questionsDbName = process.env.QUESTIONS_DATABASE;
 const mongoOptions = process.env.MONGO_DB_OPTIONS || '';
-const questionsDetailsCollection = process.env.QUESTION_DETAILS_COLLECTION;
 
 async function establishConnection() {
 

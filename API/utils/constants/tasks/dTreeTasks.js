@@ -14,7 +14,7 @@ export function promptDTree() {
   let task = Math.floor(Math.random() * taskDTreeEvaluation.length);
   let str = "";
   str += "- It should predict values using the Decision Tree Classifier Model.\n";
-  str += "- The data given to the model should be numbers.\n";
+  str += "- The data given to the model should be numbers, and not strings.\n";
   str += "- It should then";
   str += taskDTreeEvaluation[task];
 

@@ -79,7 +79,7 @@
     </div>
 </template>
 <script>
-import {getCookie, setCookie} from "../libs/cookie.js"
+// import {getCookie, setCookie} from "../libs/cookie.js"
 
 export default {
     data() {
@@ -119,9 +119,10 @@ export default {
     },
     methods: {
         handleLogout() {
-            console.log("loging out...");
-            setCookie("Admin", false, 0)
-            console.log("Admin cookie Terminated")
+                console.log("loging out...");
+            // setCookie("Admin", false, 0)
+            this.$cookies.remove("Admin")
+                console.log("Admin cookie Terminated")
             this.$router.push('/Generator')
         },
 

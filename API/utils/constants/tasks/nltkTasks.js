@@ -1,7 +1,7 @@
 
 /*----------------------------CREATING TASKS FOR GEMINI IN THE NLTK TOPIC----------------------------*/
 
-let taskNLTK = ["Lemmatization", "Stemming", "Tokenization"]
+let taskNLTK = ["Lemmatization using nltk.download('wordnet')", "Stemming", "Tokenization"]
 
 /*---------------------------------------------------------------------------------------------------*/
 

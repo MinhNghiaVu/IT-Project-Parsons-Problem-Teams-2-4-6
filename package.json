@@ -9,13 +9,15 @@
     "axios": "^1.7.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2",
+    "express": "^4.21.0",
+    "lz-string": "^1.5.0",
+    "mime-types": "^2.1.33",
     "mongodb": "^6.8.0",
     "mongoose": "^7.0.0",
-    "python": "^0.0.4",
     "python-shell": "5.0.0",
     "string-format": "^2.0.0",
     "vue": "^3.4.29",
+    "vue-cookies": "^1.8.4",
     "vue-router": "^4.4.3"
   },
   "devDependencies": {
@@ -23,8 +25,7 @@
     "@types/string-format": "^2.0.3",
     "@vitejs/plugin-vue": "^5.0.5",
     "concurrently": "^9.0.1",
-    "eslint": "^9.9.1",
-    "globals": "^15.9.0",
+    "globals": "^15.10.0",
     "nodemon": "^3.1.4",
     "vite": "^5.4.4"
   },
@@ -38,5 +39,8 @@
   "type": "module",
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "overrides": {
+    "cookie": "0.7.2"
+  }
 }

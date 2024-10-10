@@ -47,17 +47,19 @@
 
 
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'  // Import Vue Router for navigation
+import { ref, getCurrentInstance } from 'vue'
+import { useRouter } from 'vue-router' // Import Vue Router for navigation
 import { onMounted } from 'vue';
-import {getCookie, setCookie} from "../libs/cookie.js"
+// import { useCookies } from 'vue-cookies';
+// import {getCookie, setCookie} from "../libs/cookie.js"
 
 
 const email = ref('')
 const password = ref('')
 const showPassword = ref(false)  // This will toggle password visibility
-const router = useRouter()  // Initialize the router
-
+const router = useRouter() // Initialize the router
+// const cookies = useCookies()
+const { proxy } = getCurrentInstance();
 
 
 function handleLogin() {
@@ -70,7 +72,8 @@ function handleLogin() {
     console.log('Login successful!')
 
     // record login state to cookie
-    setCookie("Admin", true, 1000) // for test use, only save cookie for 1000 seconds
+    // setCookie("Admin", true, 1000) // for test use, only save cookie for 1000 seconds
+    proxy.$cookies.set('Admin', true, '100s');
 
     // Navigate to the AdminProfile page
     router.push('/AdminProfile')
@@ -96,7 +99,8 @@ function goToGenerator() {
 }
 
 function checkAdminState() {
-  const admin = getCookie("Admin")
+  const admin = proxy.$cookies.get('Admin')
+  
   console.log("getCookie: "+ admin)
   if (admin) {
     router.push('/AdminProfile')

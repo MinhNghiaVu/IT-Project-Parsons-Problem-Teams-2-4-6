@@ -1,4 +1,5 @@
 <template>
+    
     <body>
         <!-- 导航 + 计时 -->
         <div id=" top-panel">
@@ -10,7 +11,7 @@
             </div>
             <div class="nav-links">
                 <router-link to="/AdminLogin" class="nav-link">Admin</router-link>
-                <router-link to="/history" class="nav-link">History</router-link>
+                <div @click="historyBotton" class="nav-link">History</div>
                 <router-link to="/Generator" class="nav-link">Home</router-link>
             </div>
             </nav>
@@ -32,9 +33,19 @@
         <main id = "main-box">
             <!-- 左侧面板，问题和拖动代码块的区域 -->
             <div id="left-panel">
+
+                <div v-if="loading" id="loading-overlay">
+                    <img src="../loading3.gif" width="50" height="50" lass="loading-icon"/>
+                    <p class="loading-text">{{ loadingWord }}</p>
+                </div>
+
                 <div id="left-content">
-                    <h2 id="topicdescription">Parsons Problem Topic</h2> <!-- 问题数：Question1之类的但是不打算做在这个地方，先放着吧 -->
-                    <p id="questiondescription">Questiondescriptiondewjiodewjioewjidowjdoewjiodewjiodewj</p> <!-- 问题描述 -->
+                    <h2 id="topicdescription">Parsons Problem Topic</h2>
+                    <div id="question-content">
+                        <p id="questiondescription">Questiondescriptiondewjiodewjioewjidowjdoewjiodewjiodewj</p> <!-- 问题描述 -->
+                        <br>
+                        <p id="expectedoutput">expectedoutput</p>
+                    </div>
                     
                     <!--<a id="regenerate-btn" href="regen_demo_page.html"> -->
                     <!--    <button>Regenerate</button>-->
@@ -51,7 +62,9 @@
             <!-- 右侧面板，用户构建解决方案的区域 -->
             <div id="right-panel">
                 <div id="right-top">
+                    <!-- <div id="code-table"> -->
                     <div id="sortable" class="sortable-code"></div>
+                    <!-- </div> -->
                     <div id="button-group">
                         <button id="run-btn">
                             <i class="fas fa-play"></i> Run
@@ -85,7 +98,7 @@
                 <p>Correct answer! Congratulations!</p>
                 <div id="button-container">
                     <button id="window-regenerate-btn" class="finish-button">Regenerate</button>
-                    <button id="window-retry-btn"class="finish-button">Try Again</button>
+                    <button id="window-retry-btn" class="finish-button">Try Again</button>
                     <button id="window-back-btn" class="finish-button" @click="goBackHome">Back Home</button>
                 </div>
             </div>
@@ -99,67 +112,38 @@
     
     <script>
     //todo remove these samples after testing
-    let initial = "print('Hello')\n" +
-                "print('Parsons')\n" +
-                "print('problems!')";
+    // let initial = "print('Hello')\n" +
+    //             "print('Parsons')\n" +
+    //             "print('problems!')";
 
-    let testSample  = "fruits = ['apple', 'banana', 'cherry']\n" +
-                               "for x in fruits :\n" +
-                             "  print(x)";
+    // let testSample  = "fruits = ['apple', 'banana', 'cherry']\n" +
+    //                            "for x in fruits :\n" +
+    //                          "  print(x)";
 
-    let testSample2  = "print('Hello')\n" +
-                "print('Parsons')\n" +
-                "print('problems!')";                          
+    // let testSample2  = "print('Hello')\n" +
+    //             "print('Parsons')\n" +
+    //             "print('problems!')";                          
                       
-    let samples = [
-        // Sample 1: For loop with a list
-        () => {
-        const lists = {
-            fruits: "['apple', 'banana', 'cherry']",
-            animals: "['dog', 'cat', 'rabbit']",
-            cities: "['New York', 'London', 'Tokyo']"
-        };
-        const listName = getRandomElement(Object.keys(lists));
-        return `${listName} = ${lists[listName]}\n` +
-                `for item in ${listName}:\n` +
-                `  print(item)`;
-        },
 
-        // Sample 2: While loop with a counter
-        () => {
-        const counters = ['i', 'count', 'index'];
-        const limit = Math.floor(Math.random() * 10) + 1; // Random limit between 1 and 10
-        const counter = getRandomElement(counters);
-        return `${counter} = 0\n` +
-                `while ${counter} < ${limit}:\n` +
-                `  print(${counter})\n` +
-                `  ${counter} += 1`;
-        },
 
-        // Sample 3: Function to print items from a list
-        () => {
-        const lists = {
-            colors: "['red', 'green', 'blue']",
-            shapes: "['circle', 'square', 'triangle']",
-            cars: "['BMW', 'Toyota', 'Tesla']"
-        };
-        const listName = getRandomElement(Object.keys(lists));
-        return `def print_items(items):\n` +
-                `  for item in items:\n` +
-                `    print(item)\n\n` +
-                `${listName} = ${lists[listName]}\n` +
-                `print_items(${listName})`;
-        }
-    ];
 
     //let startTime;
+    import LZString from 'lz-string';
+    import { compress } from 'lz-string';
     let intervalId;
     let elapsedTime;
     let timerLock = false;
+    import axios from 'axios';
     export default {
         data() {
             return {
-                
+                topic : '',
+                context : '' ,
+                questionID : '',
+                loading: false,
+                sharelink: '',
+                prevAnswerCode: '',
+                loadingWord: "Regenerating questions may take some time, please be patient...",
             }
         },
         
@@ -171,11 +155,22 @@
         mounted() {
             this.midDragControllerDiv();
             this.horDragControllerDiv();
-            this.fetchStrings(); // Fetch initial strings on mount
+            //this.fetchStrings(); // Fetch initial strings on mount
             this.startTimer(); 
+            this.initializer();
         },
     
         methods: {
+            historyBotton() {
+                this.$router.push({
+                    path: '/History',
+                    query: {
+                    isAdmin: false,
+                    userID: this.$cookies.get('userID')
+                    }
+                })
+            },
+
             goBackHome() {
                 this.$router.push('/Generator'); // 跳转到 "/Generator" 页面
             },
@@ -246,7 +241,7 @@
                         topSection.style.height = newTopHeight + 'px';
                         bottomSection.style.height = newBottomHeight + 'px';
 
-                        bottomSection.style.overflow = 'auto'; 
+                        bottomSection.style.overflow = 'auto '; 
                     }
                 });
 
@@ -255,7 +250,28 @@
                     document.body.style.cursor = 'default';
                 });
             },
-            
+            initializer(){
+                this.topic = this.$route.query.topic;
+                this.context = this.$route.query.context;
+                
+                var compressedData = this.$route.query.shareLink;
+                // var data =  JSON.parse(this.$route.query.response);
+                this.sharelink = JSON.parse(LZString.decompressFromEncodedURIComponent(compressedData));
+                //todo uncomment below code after merging with new server
+                //initialCode = data.question
+                this.questionInitializer(this.sharelink);
+                
+            },
+            questionInitializer(data){
+                const initialCode = data.question.Code; // Update initial code
+                
+                this.questionID = data.questionID;
+                document.getElementById('questiondescription').textContent = data.question.Description;
+                document.getElementById('expectedoutput').textContent = data.question.ExpectedOutput;
+                // todo 改成七选一的topic
+                document.getElementById('topicdescription').textContent = this.topic;
+                this.initializeParsonsWidget(initialCode); // Initialize Parsons widget with fetched code
+            },
 
             startTimer() {
                 elapsedTime = 0;
@@ -296,8 +312,17 @@
                 document.getElementById('time-elapsed').textContent = '0 mins 0 seconds'; 
             },
 
+            duplicateCheck(code){
+                if (code == this.prevAnswerCode){
+                    alert("code is same as previous");
+                    return false;
+                }
+                this.prevAnswerCode = code;
+                return true;
+            },
+
             async runCode(code) {
-                const url = 'http://localhost:8383/run-python'; // Replace with your actual backend URL if deployed
+                const url = 'http://localhost:8383/api/question/runPython'; // Replace with your actual backend URL if deployed
 
                 const options = {
                     method: 'POST',
@@ -321,68 +346,64 @@
                     console.error('Error:', error);
                 }
             },
-
-            //todo 摆了
-            async fetchStrings() {
-                const outputElement = document.getElementById('output');
-    
-                try {
-                    const response = await fetch('http://localhost:8383/info');
-    
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-    
-                    const data = await response.json();
-                    initial = data.info.Code; // Update initial code
-                    document.getElementById('questiondescription').textContent = data.info.Description;
-                    // document.getElementById('topicdescription').textContent = data.info.ExpectedOutput;
-                    this.initializeParsonsWidget(initial); // Initialize Parsons widget with fetched code
-                } catch (error) {
-                    console.error('Error fetching strings:', error);
-                    outputElement.textContent = 'Error fetching strings: ' + error.message;
-                }
-            },
+            
+            
+            
             //todo regenerate-btn 的功能
             //todo window-regenerate-btn 的功能
-            getRandomElement(arr) {
-                return arr[Math.floor(Math.random() * arr.length)];
-            },
+            
 
             async regenerateTester(){
+                
                 this.regenerate();
+                
                 // this.initializeParsonsWidget(testSample2);
             },
 
             async regenerate(){
-                const url = 'http://localhost:8383/api/question/generateQuestion'; // Replace with your actual backend URL if deployed
-
-                const options = {
-                    method: 'POST',
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        topic: this.topic  ,
-                        context: this.context
-                    })
-                };
-
-                try {
-                    const response = await fetch(url, options);
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-    
-                    const data = await response.json();
-                    //initial = data.info.Code; // Update initial code
-                    document.getElementById('questiondescription').textContent = data.info.Description;
-                    // document.getElementById('topicdescription').textContent = data.info.ExpectedOutput;
-                    this.initializeParsonsWidget(initial); // Initialize Parsons widget with fetched code
-                    
-                } catch (error) {
-                    console.error('Error:', error);
+                
+                var payload;
+                if (this.$cookies.isKey("userID")) {
+                    payload = {
+                    topic: this.topic,
+                    context: this.context,
+                    userID : this.$cookies.get("userID"),
+                    };
+                } else {
+                    payload = {
+                    topic: this.topic,
+                    context: this.context
+                    };
                 }
+                
+                console.log('Sending data to backend:', payload);
+
+                this.loading = true;
+                document.getElementById('left-content').style.display = 'none';
+                document.getElementById('sortableTrash').style.display = 'none';
+                // document.getElementById('loading-overlay').style.display = 'none';
+                
+
+                axios.get('http://localhost:8383/api/question/generateQuestion', {
+                    params: payload,  // This sends topic, context, and userID as query parameters
+                    headers: {
+                    'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    //console.log('Data received successfully:', response.data);
+                    // Push to Problem page, passing the received data via query parameters
+                    this.questionInitializer(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                })
+                .finally(() => {
+                    this.loading = false; 
+                    document.getElementById('left-content').style.display = 'flex';
+                    document.getElementById('sortableTrash').style.display = 'flex';
+                    // document.getElementById('loading-overlay').style.display = 'none';  
+                });
             },
 
 
@@ -430,20 +451,20 @@
 
             //sending the result back to server
             //add more parameters
-            async sendAttempt(correct){
-                return;
-                //console.log(correct);
-                //todo change this to variables
-                //maybe use what is query to this page
+            async sendAttempt(correctness){
+                if(this.$cookies.get('acception') !== 'true'){
+                    return;
+                }
+                //todo change time to a variable
                 var pack = {
-                    questionNo: 1,
-                    studentId : 1,
-                    correctness : correct,
-                    time : 1,
-                    topic : 1
+                    questionID: this.questionID,
+                    userID : this.$cookies.get('userID'),
+                    correct : correctness,
+                    time : Number(elapsedTime),
+                    topic : this.topic
                 }
                 //this.refreshTimer();
-                const url = 'http://localhost:8383/api/attempt/submitAttempt'; // Replace with your actual backend URL if deployed
+                const url = 'http://localhost:8383/api/question/submitAttempt'; // Replace with your actual backend URL if deployed
 
                 const options = {
                     method: 'POST',
@@ -454,6 +475,7 @@
                 };
                 //not sure if we need a response for this, maybe we need?
                 try {
+                    console.log(pack);
                     const response = await fetch(url, options);
                     const result = await response.json(); // Convert the response to JSON
                     console.log(result); // Output the response to the console
@@ -515,21 +537,20 @@
                         var studentCode = this.getStudentCode(parson);
                         //runsubmit should be a no return function, this is now for testing
                         this.stopTimer();
-
-                        if(!this.emptyCheck(studentCode)){
-                            // document.getElementById('resultMessage').style.display = 'block';
-                            //await this.runSubmit(studentCode, solution);
-                           // console.log("show box");
-                            this.runSubmit(studentCode,solution);          
-                            //this.refreshTimer();
-                            //this.activeTimer();
+                        const submitButton = document.getElementById('submit-btn');
+                        submitButton.disabled = true;
+                        if(!this.emptyCheck(studentCode) && !this.duplicateCheck(studentCode)){
+                            this.runSubmit(studentCode,solution);       
+                            this.refreshTimer();
                         }
+                        this.startTimer();
+                        submitButton.disabled = false;
                     });
 
                     document.getElementById('reset-btn').addEventListener('click', () => {
                         parson.shuffleLines(); // Reshuffle the blocks for a new attempt
-                        this.refreshTimer();
-                        this.startTimer();
+                        // this.refreshTimer();
+                        // this.startTimer();
                     });
 
                     document.getElementById('window-retry-btn').addEventListener('click',() => {
@@ -542,6 +563,7 @@
                     });
  
                     document.getElementById('regenerate-btn').addEventListener('click',() => {
+                        
                         console.log('regenerating');
                         this.sendAttempt(0);//automatically mark as false if choose to regenerate, or -1 ?
                         this.regenerateTester();
@@ -561,6 +583,7 @@
             
     
             async runSubmit(studentCode, solution) {
+                
                 this.refreshOutput();
                 const studentAnswer = await this.runCode(studentCode);
                 // console.log("studentanswer", studentAnswer);
@@ -586,39 +609,8 @@
                     console.log("Error occurred:", studentAnswer.error);
                     this.sendAttempt(0); // 提交错误的尝试
                 }
+                
             },
-
-
-            //modified runCode, now does not automatically print output
-            
-
-            //this should be abandoned
-            async fetchResult(token) {
-                const resultUrl = `https://judge0-ce.p.rapidapi.com/submissions/${token}?base64_encoded=false&fields=*`;
-                const resultOptions = {
-                    method: 'GET',
-                    headers: {
-                        'x-rapidapi-key': 'a049464516msh0e7cc0897a082f0p19e4d0jsne39e0fb32884',
-                        'x-rapidapi-host': 'judge0-ce.p.rapidapi.com'
-                    }
-                };
-                try {
-                    let isPending = true;
-                    while (isPending) {
-                        const resultResponse = await fetch(resultUrl, resultOptions);
-                        const resultData = await resultResponse.json();
-                        if (resultData.status.description === "In Queue" || resultData.status.description === "Processing") {
-                            await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second before retrying
-                        } else {
-                            isPending = false;
-                            //console.log(resultData);
-                            document.getElementById('output').textContent = resultData.stdout || resultData.stderr;
-                        }
-                    }
-                } catch (error) {
-                    console.error('Error fetching result:', error);
-                }
-            }
         }
       }
     </script>
@@ -681,7 +673,7 @@
         flex-direction: row;
         position: relative;
         margin-top: 0;
-        max-height: 86.2vh;
+        max-height: 88vh;
     }
     #top-panel{
         width: 100%;
@@ -799,6 +791,7 @@
         /*margin-top: 0px;
         overflow: auto;*/
         width: 60%;
+        /* flex-grow: 1; */
         /* height: auto; */
         /* max-height: 83vh; */
         display: flex;
@@ -821,10 +814,10 @@
         height: 55%;
         display: flex;
         flex-direction: column; /* 确保内部的内容竖直排列 */
-        justify-content: flex-start; /* Push the button-group to the bottom */
+        justify-content: space-between; /* Push the button-group to the bottom */
         margin-top: 0; /* 移除不必要的顶部间距 */
         margin-bottom: 0; /* 确保和#sortable之间的间距 */
-        min-height: 150px;
+        min-height: 200px;
         /* scrollbar-gutter: stable; */
     }
     /* 如果需要在鼠标悬停时显示滚动条 */    
@@ -832,35 +825,37 @@
         overflow: auto;
         scrollbar-gutter: stable;
     }*/
+
+
     #sortable{
-        flex-grow: 1;
-        margin-left: 10px;
-        margin-right: 10px;
-        margin-top: 0; /* 移除顶部不必要的间距 */
-        margin-bottom: -40px;
+        height: 100%;
         padding: 0; /* 确保padding不会影响间距 */
         width: auto;
-        overflow-y: auto;        
+        /* overflow-y: auto;         */
+        max-height: 80%;
+        min-height: calc(75%); 
         font-size: 12px;
+        background-color: #156b3a00;
+        margin-top: 0;
     }
 
     #horizontal-divider {
-    width: 100%;
-    height: 5px;
-    background-color: #c2f0d650; 
-    cursor: ns-resize;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #000000e5;
-}
-#horizontal-divider:hover {
-    background-color: #156b3a80;
-    height: 10px;
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-    border-top: none;
-    border-bottom: none;
-}
+        width: 100%;
+        height: 5px;
+        background-color: #c2f0d650; 
+        cursor: ns-resize;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #000000e5;
+    }
+    #horizontal-divider:hover {
+        background-color: #156b3a80;
+        height: 10px;
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        border-top: none;
+        border-bottom: none;
+    }
 
     
     /* 底部区域样式 */
@@ -966,27 +961,26 @@
         flex-direction: column;
         /* overflow:auto; */
         flex-shrink: 0;
-        max-height: 50%;
+        max-height: 40%;
+        margin-bottom: 0;
+    }
+
+    #question-content{
+        overflow-y: auto;
+        max-height: calc(70%);
     }
     
-    #topicdescription, #questiondescription{
+    #topicdescription, #questiondescription, #expectedoutput{
         margin-left: 10px;
     }
-    #topicdescription{
-        max-height: 10%;
-    }
-    #questiondescription{
-        overflow-y: auto;
-        max-height: calc(60%);
-        /* scrollbar-gutter: stable; */
-    }
+
     /* #questiondescription:hover {
         overflow-y: auto;
         scrollbar-gutter: stable;
     } */
     #sortableTrash {
         width: calc(100% - 20px);
-        background: #37b0a200;
+        background: #13d4bd00;
         max-height: 50%;
         /* border: 1px solid #dcdcdc; */
         border-radius: 10px;
@@ -1054,7 +1048,8 @@
         display: flex;
         justify-content: center;
         gap: 20%;
-        margin-bottom: 10px; /* 将按钮组推到区域的底部 */
+        /* margin-top: 5px; */
+        margin-bottom: 0; 
     }
 
     #button-group i {
@@ -1160,7 +1155,8 @@
         #button-group button{
             font-size: 12px;
             padding: 5px;
-            margin-top: 50px;
+            margin-top: 5px;
+            margin-bottom: 5px;
             font-weight: 700;
         }
     }
@@ -1218,7 +1214,10 @@
         button {
             width: 30%;
         }
-    
+        
+        #button-group{
+            justify-content: center;
+        }
         #button-group button {
             width: 80px; 
             font-size: 12px;
@@ -1272,5 +1271,21 @@
     }
     .finish-button{
         background-color: #156B3A;
+    }
+
+    #loading-overlay {
+        display: flex; 
+        flex-direction: column; 
+        justify-content: center; 
+        align-items: center; 
+        position: absolute; 
+        top: 50%; 
+        left: 50%;
+        transform: translate(-50%, -50%); 
+        z-index: 9999; 
+    }
+
+    .loading-icon {
+        margin-bottom: 10px; 
     }
     </style>

@@ -1,6 +1,3 @@
-import regex from "../utils/constants/regex.js";
-import messages from "../utils/constants/messages.js";
-
 /**    
   * @function outputParserJson    
   * Takes the response from Gemini API, presumably in the format
@@ -70,6 +67,8 @@ export function replaceSpacesWithTabs(inputString) {
 
 export function processString(string) {
   let commentFlag = false;
+  let commentFlag2 = false;
+  let endCommentString = '';
   let acceptNewLines = true;
   let acceptNewLines2 = true;
   let newLineFlag = false;
@@ -85,20 +84,51 @@ export function processString(string) {
   let tabCount = 0;
 
   for (let i = 0; i < string.length; i++) {
-    currentChar = string[i]
+    currentChar = string[i];
 
     //flags
 
     //Assuming comments end in a newline character
     //Also assuming that the ai doesn't write code on the same line as a comment following the comment
-    if (!commentFlag) {
+    if (!commentFlag && !commentFlag2) {
       if (currentChar == "#") {
+        commentFlag = true;
+      } else if (currentChar == "'" && i < string.length - 2 && string[i+1] == "'" && string[i+2] == "'") {
+        commentFlag = true;
+      } else if (currentChar == '"' && i < string.length - 2 && string[i+1] == '"' && string[i+2] == '"') {
         commentFlag = true;
       }
     } else {
       if (currentChar == "\n") {
         commentFlag = false;
         nextLineFlag = true;
+        //To ensure we don't count too many tabs
+        tabCount = 0;
+      }
+    }
+
+    //To handle comments like ''' and """
+    if (!commentFlag2 && !commentFlag2) {
+      if (currentChar == "'" && i < string.length - 2 && string[i+1] == "'" && string[i+2] == "'") {
+        commentFlag2 = true;
+        endCommentString = "'";
+        i += 2;
+        continue;
+      } else if (currentChar == '"' && i < string.length - 2 && string[i+1] == '"' && string[i+2] == '"') {
+        commentFlag2 = true;
+        endCommentString = '"';
+        i += 2;
+        continue;
+      }
+    } else {
+      if (currentChar == endCommentString && i < string.length - 2 
+        && string[i+1] == endCommentString && string[i+2] == endCommentString) {
+        commentFlag2 = false;
+        nextLineFlag = true;
+        i += 2;
+        //To ensure we don't count too many tabs
+        tabCount = 0;
+        continue;
       }
     }
 
@@ -157,7 +187,7 @@ export function processString(string) {
 
     //If we're not processing over a new line then append the character
     //If it's the first character then need to append the appropriate number of tabs
-    if (!newLineFlag && !commentFlag && (nextLineFlag == true || codeArray.length == 0)) {
+    if (!newLineFlag && !commentFlag && !commentFlag2 && (nextLineFlag == true || codeArray.length == 0)) {
       if (tabCount > 0) {
         codeArray.push('\t');
         for (let i = 0; i < tabCount - 1; i++) {
@@ -169,7 +199,7 @@ export function processString(string) {
       }
       
       nextLineFlag = false;
-    } else if (!newLineFlag && !commentFlag) {
+    } else if (!newLineFlag && !commentFlag&& !commentFlag2) {
       codeArray[codeArray.length - 1] += currentChar;
     }
     

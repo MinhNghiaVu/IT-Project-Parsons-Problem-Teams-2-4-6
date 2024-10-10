@@ -9,9 +9,12 @@ import History from './pages/History.vue'
 import Problem from './pages/Problem.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import './assets/icon/iconfont.css'
+import VueCookies from 'vue-cookies';
+import LZString from 'lz-string';
 
 const app = createApp(App);
 
+app.use(VueCookies);
 
 const router = createRouter({
     history: createWebHistory(),

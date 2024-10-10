@@ -1,4 +1,7 @@
 
+// containing all the relevant topics 
+// TODO: create specific contexts for topics 
+
 import { readFileSync } from 'fs';
 import { promptDataFrame } from "./tasks/dataframeTasks.js";
 import { promptNMI } from "./tasks/nmiTasks.js";
@@ -18,6 +21,16 @@ export const TOPICS = {
   CSV: "Read/Write CSV File"
 };
 
+export const topicsList = [
+  'DataFrame',
+  'NMI (Normalised Mutual Information)',
+  'Sentence splitting using nltk (i.e. nltk.sent_tokenize())',
+  'Correlation',
+  'Linear Regression',
+  'Decision Tree Classifier',
+  'Reading/Writing CSV files'
+]
+
 /**
 * @function generatePrompt
 * This function generates a prompt based on the topic  
@@ -27,9 +40,12 @@ export const TOPICS = {
 *
 * The context of the prompt should be randomly generated based 
 * on each individual context 
+* 
+* TODO: discuss whether the prompt should ask for JSON formatted response
+* or just plain response 
 */
 export function generatePrompt(topic, context) {
-    let prompt = "Generate a piece of Python code with the following specifications:\n";
+ let prompt = "Generate a piece of Python code with the following specifications:\n";
 
     switch (topic) {
       case "DataFrame":

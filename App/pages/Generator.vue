@@ -17,6 +17,7 @@
         <div class="web-name">Learnr</div>
       </div>
       <div class="nav-links">
+        <div @click="cleanCookies" class="nav-link">Clean</div>
         <router-link to="/AdminLogin" class="nav-link">Admin</router-link>
         <div @click="historyBotton" class="nav-link">History</div>
       </div>
@@ -71,15 +72,20 @@
       </div>
     </div>
     <div v-if="loading" class="loading-overlay">
-      <img src="../loading3.gif" width="50" height="50"lass="loading-icon"/>
+      <img src="../loading3.gif" width="50" height="50" lass="loading-icon"/>
       <p class="loading-text">{{ loadingWord }}</p>
     </div>
   </div>
 </template>
 
 <script>
+
 import axios from 'axios';
-import {getCookie, setCookie} from "../libs/cookie.js"
+
+import { getUserID } from "../libs/user.js"
+import LZString from 'lz-string';
+import { compress } from 'lz-string';
+
 
 export default {
   name: 'Generator',
@@ -121,39 +127,56 @@ export default {
     };
   },
 
-  beforeMount () {
+  mounted () {
       this.checkPopUp();
+      // const userID = getUserID()
+      // console.log(userID)
   },
   // -----------------------
   methods: {
+    cleanCookies() {
+      this.$cookies.remove('acception');
+      this.$cookies.remove('userID');
+      this.$router.go(0);
+    },
+
     historyBotton() {
       this.$router.push({
         path: '/History',
         query: {
-          ignoreCookie: "No",
-          userID: getCookie("userID")
+          isAdmin: false,
+          // userID: getCookie("userID")
+          userID: this.$cookies.get('userID')
         }
       })
     },
     // cookie pop up 
-    accept() {       // handle acceptance
+    async accept() {       // handle acceptance
       this.showPopUp = false;
-      setCookie("acception", "true", 5)
-      setCookie("userID", "114", 60)
+      this.$cookies.set('acception', true, '3m');
+      const userID = await getUserID()
+      // console.log(userID)
+      this.$cookies.set('userID', userID, '3m');
+      // console.log("get ID: " + userID)
     },
     reject() {       // handle rejection
       this.showPopUp = false;
-      setCookie("acception", "false", 5)
-      console.log(getCookie("acception"))
+      this.$cookies.set('acception', false, '7d');
     },
     checkPopUp() {
-      const acception = getCookie("acception")
-      if (acception == "") {
-        console.log("acception not exist: ")
+      const acception = this.$cookies.isKey("acception")
+
+      if (!acception) {
+        // console.log("acception not exist: ")
         this.showPopUp = true
       }
       else {
         console.log("acception already exist: " + acception)
+        // if accept the cookie, then refresh the cookies
+        if (acception == 'true') {
+          this.$cookies.set('acception', true, '3m');
+          this.$cookies.set('userID', this.$cookies.get('userID'), '3m');
+        }
         this.showPopUp = false
       }
     },
@@ -182,28 +205,51 @@ export default {
       }
     },
     sendData() {
-      const payload = {
+      if (!this.selectedTopic || !this.selectedContext) {
+        alert('Please select both a topic and a context before proceeding.');
+        return; // Stop execution if no topic or context is selected
+      }
+      var payload;
+      if (this.$cookies.isKey("userID")) {
+        payload = {
+        topic: this.selectedTopic,
+        context: this.selectedContext,
+        userID : this.$cookies.get("userID"),
+        };
+      } else {
+        payload = {
         topic: this.selectedTopic,
         context: this.selectedContext
-      };
+        };
+      }
+       
       console.log('Sending data to backend:', payload);
 
       this.loading = true;
 
-      axios.post('http://localhost:8383/api/sendData', payload, {
+      axios.get('http://localhost:8383/api/question/generateQuestion', {
+        params: payload,  // This sends topic, context, and userID as query parameters
         headers: {
           'Content-Type': 'application/json'
         }
       })
       .then(response => {
-        console.log('Data sent successfully:', response.data);
+        //console.log('Data received successfully:', response.data);
+        // Push to Problem page, passing the received data via query parameters
+        const compressedData = LZString.compressToEncodedURIComponent(JSON.stringify(response.data));
+        console.log(compressedData);
         this.$router.push({ 
           path: '/Problem', 
-          query: { topic: this.selectedTopic, context: this.selectedContext }
+          query: { 
+            shareLink: compressedData,
+            // response: JSON.stringify(response.data),  // assuming the result is in response.data.result
+            topic: this.selectedTopic, 
+            context: this.selectedContext 
+          }
         });
       })
       .catch(error => {
-        console.error('Error sending data:', error);
+        console.error('Error fetching data:', error);
       })
       .finally(() => {
         this.loading = false; 
