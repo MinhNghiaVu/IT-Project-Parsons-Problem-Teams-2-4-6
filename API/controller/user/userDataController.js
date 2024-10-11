@@ -128,7 +128,7 @@ const userController = {
 
       const usersDbName = await getUsersDbName();
 
-      const result = await userDataService.updateUserAnalytics(userIDObjectID, topic, correct, time, questionIDObjectID, usersDbName);
+      const result = await userDataService.updateUserAnalytics(userIDObjectID, topic, correct, time, questionID, usersDbName);
       if (!result.success) {
         return res.status(httpCodes.BAD_REQUEST).json({
           success: false,

@@ -1,6 +1,7 @@
 import userDataRepo from "../../database/repository/user/userDataRepo.js";
 import questionRepo from "../../database/repository/questions/questionRepo.js";
 import { topicsList } from "../../utils/constants/TopicsContexts.js";
+import mongoose from "mongoose";
 
 const userDataService = {
   newUserID: async (usersDbName) => {
@@ -77,8 +78,10 @@ const userDataService = {
     try {
       // squash everything into a giant list of questionIDs
       const allQuestionIDs = userData.topicSummary.reduce((acc, topic) => {
-        return acc.concat(topic.attemptedQuestions.map(question => question));
+        return acc.concat(topic.attemptedQuestions.map(question => new mongoose.Types.ObjectId(question)));
       }, []); // accumulate all question IDs into this empty array
+
+      console.log('allQuestionIDs:', allQuestionIDs);
 
       const questionDetails = await questionRepo.getQuestionDetailsFromArray(allQuestionIDs, questionsDbName); // fetch everything
 
