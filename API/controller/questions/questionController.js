@@ -3,6 +3,7 @@ import askGemini from "../../service/askGemini.js";
 import questionService from "../../service/questions/questionsService.js";
 import httpCodes from "../../utils/constants/httpsCodes.js";
 import { PythonShell } from 'python-shell';
+import mongoose from "mongoose";
 
 // Uses askGemini to generate a question based on the topic and context
 const questionController = {
@@ -18,11 +19,9 @@ const questionController = {
           message: "Please provide a topic and context"
         })
       }
-    
+
       const questionsDbName = await getQuestionsDbName();
-    
-      const questionID = await questionService.generateNewQuestionID(questionsDbName);
-      
+              
       const question = await askGemini(topic, context, userID);
       if (!question.success) {
         return res.status(httpCodes.INTERNAL_SERVER_ERROR).json({
@@ -32,7 +31,7 @@ const questionController = {
       }
 
       // save this question to the database
-      const saveResult = await questionService.saveNewQuestion(questionID, topic, context, questionsDbName);
+      const saveResult = await questionService.saveNewQuestion(topic, context, questionsDbName);
       if (!saveResult.success) {
         return res.status(httpCodes.INTERNAL_SERVER_ERROR).json({
           success: false,
@@ -43,7 +42,7 @@ const questionController = {
       return res.status(httpCodes.OK).json({
         success: true,
         message: "Question generated successfully",
-        questionID: questionID,
+        questionID: saveResult.questionID,
         question: question.fixed_resp
       });
 
@@ -93,52 +92,24 @@ const questionController = {
     );
   },
 
-  saveAttempt: async (req, res, next) => {
-    try {
-      const { questionID, time, correct, topic } = req.body;
-      if (!topic || !questionID || !time || correct === undefined) {
-        return res.status(httpCodes.BAD_REQUEST).json({
-          success: false,
-          message: "Please provide an attempt to save"
-        });
-      }
-
-      const questionsDbName = await getQuestionsDbName();
-      const result = await questionService.saveAttempt(questionID, time, correct, topic, questionsDbName);
-
-      if (!result.success) {
-        return res.status(httpCodes.BAD_REQUEST).json({
-          success: false,
-          message: result.message
-        });
-      }
-      // next one in the middleware chain (this is actually a middleware!)
-      next();
-    } catch (e) {
-      console.error("Error saving attempt:", e);
-      return res.status(httpCodes.INTERNAL_SERVER_ERROR).json({
-        success: false,
-        message: e.message
-      });
-    }
-  },
-
   // Updates the question details based on the user's attempt
   // Request: { questionID, time, correct }
   // Response: { success, message }
   updateQuestionDetails: async (req, res, next) => {
     try {
       const { questionID, time, correct } = req.body; // Destructure the questionID, time and correct from req.body
-      if (!questionID || !time || correct === undefined) {
+      if (!questionID || time === undefined || correct === undefined) {
         return res.status(httpCodes.BAD_REQUEST).json({
           success: false,
           message: "Please provide a questionID, time and correct"
         });
       }
+
+      const questionIDObjectID = new mongoose.Types.ObjectId(questionID);
     
       const questionsDbName = await getQuestionsDbName();
     
-      const updateResult = await questionService.updateQuestionDetails(questionID, time, correct, questionsDbName);
+      const updateResult = await questionService.updateQuestionDetails(questionIDObjectID, time, correct, questionsDbName);
       if (!updateResult.success) {
         return res.status(httpCodes.INTERNAL_SERVER_ERROR).json({
           success: false,

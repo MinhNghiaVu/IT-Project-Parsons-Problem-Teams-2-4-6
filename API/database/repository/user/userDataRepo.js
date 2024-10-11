@@ -18,13 +18,11 @@ const userDataRepo = {
   getUserData: async (userID, usersDbName) => {
     try {
       const userDataModel = await getUserDataModel(usersDbName);
-      
       const result = await userDataModel.aggregate([
-        { $match: { userID: userID } },
+        { $match: { _id: userID } },
         {
           $project: {
-            _id: 0,
-            userID: 1,
+            _id: 1,
             name: 1,
             accuracy: 1,
             numQuestions: 1,
@@ -70,7 +68,7 @@ const userDataRepo = {
         },
         {
           $project: {
-            userID: 1,
+            _id: 1,
             numQuestions: "$topicSummary.numQuestions",
             accuracy: "$topicSummary.accuracy",
             totalTime: "$topicSummary.totalTime",
@@ -89,18 +87,7 @@ const userDataRepo = {
   },
 
   // -------------------------------------UPDATES-------------------------------------
-  newUserID: async (usersDbName) => {
-    try {
-      const userDataModel = await getUserDataModel(usersDbName);
-      const result = await userDataModel.countDocuments();
-      return result + 1;
-    } catch (e) {
-      console.error("Error getting new user ID:", e);
-      throw e;
-    }
-  },
-
-  createUser: async (userID, topicsList, usersDbName) => {
+  createUser: async (topicsList, usersDbName) => {
     try {
       const userDataModel = await getUserDataModel(usersDbName);
       const topicSummary = topicsList.map(topic => ({
@@ -114,7 +101,6 @@ const userDataRepo = {
       }));
   
       const newUser = new userDataModel({
-        userID: userID,
         topicSummary: topicSummary,
       });
       return await newUser.save();
@@ -128,7 +114,7 @@ const userDataRepo = {
     try {
       const userDataModel = await getUserDataModel(usersDbName);
       return await userDataModel.updateOne(
-        { userID: userID },
+        { _id: userID },
         { name: newUsername }
       );
     } catch (e) {
@@ -140,9 +126,10 @@ const userDataRepo = {
   updateUserAnalytics: async (userID, topic, correct, time, questionID, usersDbName) => {
     try {
       const userDataModel = await getUserDataModel(usersDbName);
+      console.log("Updating user analytics for user", userID, "in topic", topic, "with question", questionID, "correct:", correct, "time:", time);
       // First update: save the attempted question into the question SET (unique) of the topic
       await userDataModel.updateOne(
-        { userID: userID },
+        { _id: userID },
         {
           $addToSet: {
             "topicSummary.$[element].attemptedQuestions": questionID,
@@ -160,10 +147,11 @@ const userDataRepo = {
           ]
         }
       );
+      
 
       if (correct) {
         await userDataModel.updateOne(
-          { userID: userID },
+          { _id: userID },
           {
             $addToSet: {
               "topicSummary.$[element].correctQuestions": questionID,
@@ -184,7 +172,7 @@ const userDataRepo = {
       }
 
       const updatedTopic = await userDataModel.findOne(
-        { userID: userID, "topicSummary.topic": topic },
+        { _id: userID, "topicSummary.topic": topic },
         { "topicSummary.$": 1 }
       ); // shows the updated topicSummary for that topic ONLY
 
@@ -195,7 +183,7 @@ const userDataRepo = {
 
       // Second update: update the number of questions and correct in the topic
       await userDataModel.updateOne(
-        { userID: userID },
+        { _id: userID },
         {
           $set: {
             "topicSummary.$[element].numQuestions": numQuestionsTopic,
@@ -212,7 +200,7 @@ const userDataRepo = {
         }
       );
 
-      const updatedUser = await userDataModel.findOne({ userID: userID });
+      const updatedUser = await userDataModel.findOne({ _id: userID });
       let totalNumQuestions = 0;
       let totalNumCorrect = 0;
 
@@ -226,7 +214,7 @@ const userDataRepo = {
 
       // Third update: update the total number of questions and correct in the user's data, and accuracy of the topic and the overall user
       return await userDataModel.updateOne(
-        { userID: userID },
+        { _id: userID },
         {
           $set: {
             numQuestions: totalNumQuestions,

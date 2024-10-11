@@ -107,22 +107,11 @@ const questionRepo = {
   },
 
   // -------------------------------------UPDATES-------------------------------------
-  generateNewQuestionID: async (questionsDbName) => {
-    try {
-      const questionModel = await getQuestionModel(questionsDbName);
-      const numQuestions = await questionModel.countDocuments();
-      return numQuestions + 1;
-    } catch (e) {
-      console.error("Error generating new question ID:", e);
-      throw e;
-    }
-  },
 
-  createNewQuestion: async (questionID, topic, context, questionsDbName) => {
+  createNewQuestion: async (topic, context, questionsDbName) => {
     try {
       const questionModel = await getQuestionModel(questionsDbName);
       const newQuestion = new questionModel({
-        questionID: questionID,
         topic: topic,
         context: context,
       });
@@ -145,12 +134,12 @@ const questionRepo = {
   },
 
   // Updates the details of the question with this questionID
-  updateQuestionDetails: async (attemptID, questionID, time, correct, questionsDbName) => {
+  updateQuestionDetails: async (questionID, time, correct, questionsDbName) => {
     try {
       const questionModel = await getQuestionModel(questionsDbName);
       // Only updates the fields that are present in updatedDetails
       return await questionModel.updateOne(
-        { questionID: questionID },
+        { _id: questionID },
         { 
           $inc: {
             numAttempts: 1,
@@ -161,7 +150,6 @@ const questionRepo = {
           },
           $push: {
             attempts: {
-              attemptID: attemptID,
               time: time,
               correct: correct,
             }

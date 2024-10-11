@@ -5,9 +5,9 @@ import { topicsList } from "../../utils/constants/TopicsContexts.js";
 const userDataService = {
   newUserID: async (usersDbName) => {
     try {
-      const userID = await userDataRepo.newUserID(usersDbName);
-      const newUser = await userDataRepo.createUser(userID, topicsList, usersDbName);
-      if (!userID || !newUser) {
+      const newUser = await userDataRepo.createUser(topicsList, usersDbName);
+      console.log("NEW USER: ", newUser);
+      if (!newUser) {
         return {
           success: false,
           message: "Error generating new user ID and new user",
@@ -16,7 +16,7 @@ const userDataService = {
       return {
         success: true,
         message: "New user ID generated successfully",
-        userID: userID,
+        userID: newUser._id,
       };
     } catch (e) {
       console.error("Error generating new user ID:", e);

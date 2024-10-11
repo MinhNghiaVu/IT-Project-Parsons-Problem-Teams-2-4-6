@@ -1,7 +1,8 @@
+import { ObjectId } from "mongodb";
 import { Schema } from "mongoose";
 
 const ChatHistorySchema = new Schema({
-    userID: Number,
+    userID: ObjectId,
     topic: String,
     question: String,
     prompt: String,

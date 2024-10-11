@@ -1,6 +1,7 @@
 import userDataService from '../../service/user/userDataService.js';
 import { getUsersDbName, getQuestionsDbName } from '../../utils/functions/dbName.js';
 import httpCodes from "../../utils/constants/httpsCodes.js";
+import mongoose from 'mongoose';
 
 const userController = {
   newUserID: async (req, res) => {
@@ -16,7 +17,7 @@ const userController = {
       return res.status(httpCodes.OK).json({
         success: true,
         message: "New user ID generated successfully",
-        userID: userID
+        userID: userID.userID
       });
     } catch (e) {
       console.error("Error generating new user ID:", e);
@@ -73,17 +74,12 @@ const userController = {
           message: "Please provide an userID"
         });
       }
-      const userIDInt = parseInt(userID);
-      if (!userIDInt) {
-        return res.status(httpCodes.BAD_REQUEST).json({
-          success: false,
-          message: "Please provide an integer userID"
-        });
-      }
+
+      const userIDObjectID = new mongoose.Types.ObjectId(userID);
 
       const usersDbName = await getUsersDbName();
       // fetch user data
-      const userData = await userDataService.getUserData(userIDInt, usersDbName);
+      const userData = await userDataService.getUserData(userIDObjectID, usersDbName);
       if (!userData.success) {
         return res.status(httpCodes.BAD_REQUEST).json({
           success: false,
@@ -128,9 +124,12 @@ const userController = {
         };
       }
 
+      const userIDObjectID = new mongoose.Types.ObjectId(userID);
+      const questionIDObjectID = new mongoose.Types.ObjectId(questionID);
+
       const usersDbName = await getUsersDbName();
 
-      const result = await userDataService.updateUserAnalytics(userID, topic, correct, time, questionID, usersDbName);
+      const result = await userDataService.updateUserAnalytics(userIDObjectID, topic, correct, time, questionIDObjectID, usersDbName);
       if (!result.success) {
         return res.status(httpCodes.BAD_REQUEST).json({
           success: false,
