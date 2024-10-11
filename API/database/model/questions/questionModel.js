@@ -10,7 +10,6 @@ const QuestionSchema = new Schema({
   attempts: { 
     type: [
       {
-        attemptID: { type: Number, required: true },
         correct: { type: Boolean, default: false, required: true },
         time: { type: Number, default: 0, required: true }
       },

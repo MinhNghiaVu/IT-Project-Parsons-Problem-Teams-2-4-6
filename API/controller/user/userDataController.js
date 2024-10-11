@@ -125,7 +125,6 @@ const userController = {
       }
 
       const userIDObjectID = new mongoose.Types.ObjectId(userID);
-      const questionIDObjectID = new mongoose.Types.ObjectId(questionID);
 
       const usersDbName = await getUsersDbName();
 
